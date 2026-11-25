@@ -24,25 +24,42 @@ function setupDatabase() {
   const headersKaryawan = ['ID_KARYAWAN', 'NAMA', 'JABATAN', 'STATUS_AKTIF', 'CATATAN', 'PIN_PASSWORD'];
   syncHeaders(sheetKaryawan, headersKaryawan);
   
-  // Dummy data jika sheet baru dibuat (hanya ada baris header)
+  // Data resmi karyawan tim Security (SECR-001 s/d SECR-021) — diisi jika sheet baru
+  const dataMasterKaryawan = [
+    ['SECR-001', 'Sri Subo Siti',              'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-002', 'Hari Yanto',                 'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-003', 'Adam Iskandar',              'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-004', 'Henra A. S',                 'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-005', 'Bambang. S',                 'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-006', 'Gemi I',                     'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-007', 'Eddy S',                     'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-008', 'Uyung K',                    'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-009', 'M. Qidam',                   'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-010', 'Pratama N',                  'Koordinator', 'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-011', 'Ahmad Nawari',               'Anggota',     'AKTIF', 'Graha Nusa 3',   '1234'],
+    ['SECR-012', 'S Widodo',                   'Anggota',     'AKTIF', 'Graha Nusa 3',   '1234'],
+    ['SECR-013', 'Herdiyanto',                 'Anggota',     'AKTIF', 'Graha Nusa 3',   '1234'],
+    ['SECR-014', 'Heru Iskandar',              'Anggota',     'AKTIF', 'Graha Nusa 3',   '1234'],
+    ['SECR-015', 'Nuryanto',                   'Anggota',     'AKTIF', 'Graha Nusa 3',   '1234'],
+    ['SECR-016', 'Sutris Purwoko',             'Anggota',     'AKTIF', 'Graha Nusa 3',   '1234'],
+    ['SECR-017', 'Abdul Azis',                 'Anggota',     'AKTIF', 'Home Dirut',     '1234'],
+    ['SECR-018', 'Abdul Rahman Ash-Shiddiq',   'Anggota',     'AKTIF', 'Home Dirut',     '1234'],
+    ['SECR-019', 'Nurdin',                     'Anggota',     'AKTIF', 'Home DirKeu',    '1234'],
+    ['SECR-020', 'Adhek Kurnia I',             'Anggota',     'AKTIF', 'Home Dir Asset', '1234'],
+    ['SECR-021', 'Eri Arman Zebua',            'Anggota',     'AKTIF', 'Home Dir PP',    '1234']
+  ];
+
   if (sheetKaryawan.getLastRow() <= 1) {
-    const dummyKaryawan = [
-      ['EMP-001', 'Ahmad Fauzi', 'Supervisor Lapangan', 'AKTIF', 'Tim Operasional', '123456'],
-      ['EMP-002', 'Budi Santoso', 'Staff Gudang', 'AKTIF', 'Tim Gudang', '123456'],
-      ['EMP-003', 'Citra Lestari', 'Administrasi & Keuangan', 'AKTIF', 'Tim Kantor', '123456'],
-      ['EMP-004', 'Dedi Kurniawan', 'Teknisi & Maintenance', 'AKTIF', 'Tim Operasional', '123456'],
-      ['EMP-005', 'Eka Rahmawati', 'Customer Service', 'AKTIF', 'Tim Front Office', '123456']
-    ];
-    sheetKaryawan.getRange(2, 1, dummyKaryawan.length, headersKaryawan.length).setValues(dummyKaryawan);
+    sheetKaryawan.getRange(2, 1, dataMasterKaryawan.length, headersKaryawan.length).setValues(dataMasterKaryawan);
     formatHeaderRow(sheetKaryawan, headersKaryawan.length);
   } else {
-    // Safe Migration: Isi PIN default 123456 jika ada karyawan lama yang kolom PIN-nya masih kosong
+    // Safe Migration: Isi PIN default 1234 jika ada karyawan yang kolom PIN-nya masih kosong
     const totalRows = sheetKaryawan.getLastRow();
     const pinColIndex = headersKaryawan.indexOf('PIN_PASSWORD') + 1; // Kolom 6 (F)
     const currentPins = sheetKaryawan.getRange(2, pinColIndex, totalRows - 1, 1).getDisplayValues();
     for (let i = 0; i < currentPins.length; i++) {
       if (!currentPins[i][0]) {
-        sheetKaryawan.getRange(i + 2, pinColIndex).setValue('123456');
+        sheetKaryawan.getRange(i + 2, pinColIndex).setValue('1234');
       }
     }
   }
@@ -56,9 +73,9 @@ function setupDatabase() {
   if (sheetAbsensi.getLastRow() <= 1) {
     const todayStr = Utilities.formatDate(new Date(), timezone, 'yyyy-MM-dd');
     const dummyAbsensi = [
-      ['ABS-' + todayStr.replace(/-/g, '') + '-001', todayStr, '07:45:12', 'EMP-001', 'Ahmad Fauzi', 'MASUK', 'HADIR', '', 'Tepat waktu di lokasi proyek'],
-      ['ABS-' + todayStr.replace(/-/g, '') + '-002', todayStr, '07:55:08', 'EMP-002', 'Budi Santoso', 'MASUK', 'HADIR', '', 'Piket pagi'],
-      ['ABS-' + todayStr.replace(/-/g, '') + '-003', todayStr, '08:15:30', 'EMP-003', 'Citra Lestari', 'MASUK', 'IZIN', '', 'Izin terlambat 15 menit']
+      ['ABS-' + todayStr.replace(/-/g, '') + '-001', todayStr, '07:45:12', 'SECR-001', 'Sri Subo Siti', 'MASUK', 'HADIR', '', 'Tepat waktu di lokasi'],
+      ['ABS-' + todayStr.replace(/-/g, '') + '-002', todayStr, '07:55:08', 'SECR-002', 'Hari Yanto', 'MASUK', 'HADIR', '', 'Piket pagi'],
+      ['ABS-' + todayStr.replace(/-/g, '') + '-003', todayStr, '08:15:30', 'SECR-003', 'Adam Iskandar', 'MASUK', 'IZIN', '', 'Izin terlambat 15 menit']
     ];
     sheetAbsensi.getRange(2, 1, dummyAbsensi.length, headersAbsensi.length).setValues(dummyAbsensi);
     formatHeaderRow(sheetAbsensi, headersAbsensi.length);
@@ -158,4 +175,62 @@ function syncSettingEntries(sheet, expectedEntries) {
       sheet.appendRow(entry);
     }
   });
+}
+
+/**
+ * ================================================================================
+ * RESET & GANTI DATA KARYAWAN RESMI (by ZettBOT by Zettbos)
+ * ================================================================================
+ * Fungsi ini MENGHAPUS semua data lama di sheet DataKaryawan (kecuali baris header)
+ * dan mengisinya ulang dengan 21 anggota tim Security resmi (SECR-001 s/d SECR-021).
+ *
+ * CARA PAKAI: Jalankan fungsi ini SEKALI dari menu Apps Script Editor.
+ * PERINGATAN: Data karyawan lama akan terhapus permanen. Backup terlebih dahulu jika perlu.
+ * ================================================================================
+ */
+function resetDanGantiDataKaryawanBaru() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheetKaryawan = ss.getSheetByName('DataKaryawan');
+  if (!sheetKaryawan) {
+    Logger.log('ERROR: Sheet DataKaryawan tidak ditemukan!');
+    return;
+  }
+
+  // Hapus semua baris data (mulai baris 2, biarkan header baris 1)
+  const lastRow = sheetKaryawan.getLastRow();
+  if (lastRow > 1) {
+    sheetKaryawan.deleteRows(2, lastRow - 1);
+    Logger.log('Data lama berhasil dihapus: ' + (lastRow - 1) + ' baris.');
+  }
+
+  // Data resmi 21 anggota tim Security
+  const dataBaru = [
+    ['SECR-001', 'Sri Subo Siti',              'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-002', 'Hari Yanto',                 'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-003', 'Adam Iskandar',              'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-004', 'Henra A. S',                 'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-005', 'Bambang. S',                 'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-006', 'Gemi I',                     'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-007', 'Eddy S',                     'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-008', 'Uyung K',                    'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-009', 'M. Qidam',                   'Anggota',     'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-010', 'Pratama N',                  'Koordinator', 'AKTIF', 'Agro Plaza',     '1234'],
+    ['SECR-011', 'Ahmad Nawari',               'Anggota',     'AKTIF', 'Graha Nusa 3',   '1234'],
+    ['SECR-012', 'S Widodo',                   'Anggota',     'AKTIF', 'Graha Nusa 3',   '1234'],
+    ['SECR-013', 'Herdiyanto',                 'Anggota',     'AKTIF', 'Graha Nusa 3',   '1234'],
+    ['SECR-014', 'Heru Iskandar',              'Anggota',     'AKTIF', 'Graha Nusa 3',   '1234'],
+    ['SECR-015', 'Nuryanto',                   'Anggota',     'AKTIF', 'Graha Nusa 3',   '1234'],
+    ['SECR-016', 'Sutris Purwoko',             'Anggota',     'AKTIF', 'Graha Nusa 3',   '1234'],
+    ['SECR-017', 'Abdul Azis',                 'Anggota',     'AKTIF', 'Home Dirut',     '1234'],
+    ['SECR-018', 'Abdul Rahman Ash-Shiddiq',   'Anggota',     'AKTIF', 'Home Dirut',     '1234'],
+    ['SECR-019', 'Nurdin',                     'Anggota',     'AKTIF', 'Home DirKeu',    '1234'],
+    ['SECR-020', 'Adhek Kurnia I',             'Anggota',     'AKTIF', 'Home Dir Asset', '1234'],
+    ['SECR-021', 'Eri Arman Zebua',            'Anggota',     'AKTIF', 'Home Dir PP',    '1234']
+  ];
+
+  sheetKaryawan.getRange(2, 1, dataBaru.length, 6).setValues(dataBaru);
+  SpreadsheetApp.flush();
+
+  Logger.log('SUCCESS: ' + dataBaru.length + ' karyawan resmi berhasil dimasukkan ke DataKaryawan.');
+  SpreadsheetApp.getUi().alert('Reset Sukses!\n\n' + dataBaru.length + ' anggota tim Security (SECR-001 s/d SECR-021) berhasil dimuat ke sheet DataKaryawan.');
 }
