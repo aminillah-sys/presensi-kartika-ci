@@ -44,8 +44,8 @@
         </div>
 
         <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center gap-1.5" id="mainDesktopNav">
-          <button onclick="switchTab('presensi')" id="nav-btn-presensi" class="nav-tab px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
+        <nav class="hidden items-center gap-1.5" id="mainDesktopNav">
+          <button onclick="switchTab('presensi')" id="nav-btn-presensi" class="nav-tab hidden px-4 py-2 rounded-lg text-sm font-medium transition-all items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
             <span>🕒 Presensi Mandiri</span>
           </button>
           <button onclick="switchTab('rekap')" id="nav-btn-rekap" class="nav-tab hidden px-4 py-2 rounded-lg text-sm font-medium transition-all items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
@@ -99,7 +99,7 @@
   <main class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1">
 
     <!-- TAB 1: PRESENSI MANDIRI -->
-    <section id="tab-presensi" class="tab-content">
+    <section id="tab-presensi" class="tab-content hidden">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         <!-- Form Presensi Card -->
