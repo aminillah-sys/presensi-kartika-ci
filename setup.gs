@@ -234,3 +234,48 @@ function resetDanGantiDataKaryawanBaru() {
   Logger.log('SUCCESS: ' + dataBaru.length + ' karyawan resmi berhasil dimasukkan ke DataKaryawan.');
   SpreadsheetApp.getUi().alert('Reset Sukses!\n\n' + dataBaru.length + ' anggota tim Security (SECR-001 s/d SECR-021) berhasil dimuat ke sheet DataKaryawan.');
 }
+
+/**
+ * ================================================================================
+ * RESET PASSWORD & USERNAME ADMINISTRATOR (by ZettBOT by Zettbos)
+ * ================================================================================
+ * Fungsi ini mereset kredensial Administrator di sheet Pengaturan menjadi:
+ * Username : admin
+ * Password : admin123 (juga menerima 1234 sebagai fallback)
+ *
+ * CARA PAKAI: Jalankan fungsi ini dari Apps Script Editor jika lupa password.
+ * ================================================================================
+ */
+function resetPasswordAdmin() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName('Pengaturan');
+  if (!sheet) {
+    SpreadsheetApp.getUi().alert('Tab Pengaturan tidak ditemukan.');
+    return;
+  }
+  const lastRow = sheet.getLastRow();
+  let foundUser = false;
+  let foundPass = false;
+  if (lastRow > 1) {
+    const data = sheet.getRange(2, 1, lastRow - 1, 2).getDisplayValues();
+    for (let i = 0; i < data.length; i++) {
+      const k = (data[i][0] || '').trim();
+      if (k === 'ADMIN_USERNAME') {
+        sheet.getRange(i + 2, 2).setValue('admin');
+        foundUser = true;
+      }
+      if (k === 'ADMIN_PASSWORD') {
+        sheet.getRange(i + 2, 2).setValue('admin123');
+        foundPass = true;
+      }
+    }
+  }
+  if (!foundUser) {
+    sheet.appendRow(['ADMIN_USERNAME', 'admin', 'Username resmi untuk login ke Dashboard Admin']);
+  }
+  if (!foundPass) {
+    sheet.appendRow(['ADMIN_PASSWORD', 'admin123', 'Password resmi untuk login ke Dashboard Admin (dapat diubah)']);
+  }
+  SpreadsheetApp.flush();
+  SpreadsheetApp.getUi().alert('BERHASIL DI-RESET!\n\nUsername Admin: admin\nPassword Admin: admin123\n(Atau gunakan PIN 1234)\n\nSilakan coba login kembali di Web App.');
+}
