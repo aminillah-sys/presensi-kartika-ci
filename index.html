@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -508,8 +508,8 @@
 
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">PIN / Password Login Karyawan</label>
-              <input type="text" id="inputPinKaryawan" placeholder="Default: 123456" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-slate-900 font-mono">
-              <span class="text-[10px] text-slate-400">Kosongkan untuk menggunakan PIN default 123456</span>
+              <input type="text" id="inputPinKaryawan" placeholder="Default: 1234" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-slate-900 font-mono">
+              <span class="text-[10px] text-slate-400">Kosongkan untuk menggunakan PIN default 1234</span>
             </div>
 
             <button type="submit" id="btnTambahKaryawan" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm rounded-xl transition-all shadow-sm flex items-center justify-center gap-2">
@@ -577,7 +577,7 @@
                 ID Karyawan / Username Admin <span class="text-rose-500">*</span>
               </label>
               <div class="relative">
-                <input type="text" id="inputLoginUser" required autocomplete="username" placeholder="Contoh: EMP-001 atau admin" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-slate-900 focus:border-slate-900 outline-none transition-all">
+                <input type="text" id="inputLoginUser" required autocomplete="username" placeholder="Contoh: SECR-001 atau admin" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-slate-900 focus:border-slate-900 outline-none transition-all">
               </div>
             </div>
 
@@ -606,7 +606,7 @@
               <span class="w-2 h-2 rounded-full bg-emerald-500 mt-1.5 flex-shrink-0"></span>
               <div>
                 <span class="font-bold text-slate-800">Akun Karyawan:</span><br>
-                Gunakan ID Karyawan (contoh: <code class="bg-white px-1 py-0.5 rounded border border-slate-200 font-mono text-[11px] text-slate-800">EMP-001</code>) dan PIN (default: <code class="bg-white px-1 py-0.5 rounded border border-slate-200 font-mono text-[11px] text-slate-800">123456</code>).
+                Gunakan ID Karyawan (contoh: <code class="bg-white px-1 py-0.5 rounded border border-slate-200 font-mono text-[11px] text-slate-800">SECR-001</code>) dan PIN (default: <code class="bg-white px-1 py-0.5 rounded border border-slate-200 font-mono text-[11px] text-slate-800">1234</code>).
               </div>
             </div>
             <div class="flex items-start gap-2 pt-1 border-t border-slate-200/60">
@@ -726,15 +726,15 @@
         'JAM_MASUK_MAKSIMAL': '08:00'
       },
       karyawanList: [
-        { id: 'EMP-001', nama: 'Ahmad Fauzi', jabatan: 'Supervisor Lapangan', status: 'AKTIF' },
-        { id: 'EMP-002', nama: 'Budi Santoso', jabatan: 'Staff Gudang', status: 'AKTIF' },
-        { id: 'EMP-003', nama: 'Citra Lestari', jabatan: 'Administrasi & Keuangan', status: 'AKTIF' },
-        { id: 'EMP-004', nama: 'Dedi Kurniawan', jabatan: 'Teknisi Maintenance', status: 'AKTIF' },
-        { id: 'EMP-005', nama: 'Eka Rahmawati', jabatan: 'Customer Service', status: 'AKTIF' }
+        { id: 'SECR-001', nama: 'Sri Subo Siti', jabatan: 'Anggota', status: 'AKTIF' },
+        { id: 'SECR-002', nama: 'Hari Yanto', jabatan: 'Anggota', status: 'AKTIF' },
+        { id: 'SECR-003', nama: 'Adam Iskandar', jabatan: 'Anggota', status: 'AKTIF' },
+        { id: 'SECR-004', nama: 'Henra A. S', jabatan: 'Anggota', status: 'AKTIF' },
+        { id: 'SECR-005', nama: 'Bambang. S', jabatan: 'Anggota', status: 'AKTIF' }
       ],
       todayLogs: [
-        { id: 'ABS-20261119-001', tanggal: '2026-11-19', waktu: '07:45:10', idKaryawan: 'EMP-001', nama: 'Ahmad Fauzi', tipe: 'MASUK', status: 'HADIR', urlFoto: '', keterangan: 'Tepat waktu di lokasi' },
-        { id: 'ABS-20261119-002', tanggal: '2026-11-19', waktu: '07:55:24', idKaryawan: 'EMP-002', nama: 'Budi Santoso', tipe: 'MASUK', status: 'HADIR', urlFoto: '', keterangan: 'Piket pagi gudang' }
+        { id: 'ABS-20261119-001', tanggal: '2026-11-19', waktu: '07:45:10', idKaryawan: 'SECR-001', nama: 'Sri Subo Siti', tipe: 'MASUK', status: 'HADIR', urlFoto: '', keterangan: 'Tepat waktu di lokasi' },
+        { id: 'ABS-20261119-002', tanggal: '2026-11-19', waktu: '07:55:24', idKaryawan: 'SECR-002', nama: 'Hari Yanto', tipe: 'MASUK', status: 'HADIR', urlFoto: '', keterangan: 'Piket pagi gudang' }
       ]
     };
 
@@ -1074,12 +1074,12 @@
             onLoginSuccess('ADMIN', { id: 'ADMIN', nama: 'Administrator', jabatan: 'Admin Sistem', role: 'ADMIN' }, 'Login berhasil sebagai Administrator!');
           } else {
             const foundEmp = MOCK_DATA.karyawanList.find(function(k) {
-              return (k.id.toLowerCase() === user.toLowerCase() || k.nama.toLowerCase() === user.toLowerCase()) && pass === '123456';
+              return (k.id.toLowerCase() === user.toLowerCase() || k.nama.toLowerCase() === user.toLowerCase()) && pass === '1234';
             });
             if (foundEmp) {
               onLoginSuccess('KARYAWAN', { id: foundEmp.id, nama: foundEmp.nama, jabatan: foundEmp.jabatan, role: 'KARYAWAN' }, 'Selamat datang, ' + foundEmp.nama + '!');
             } else {
-              showToast('error', 'Akun atau PIN salah. Contoh: ID EMP-001 / PIN 123456 atau admin / admin123');
+              showToast('error', 'Akun atau PIN salah. Contoh: ID SECR-001 / PIN 1234 atau admin / admin123');
             }
           }
         }, 500);
@@ -1652,7 +1652,7 @@
 
     // Modal / Prompt Reset PIN Karyawan oleh Admin
     function promptResetPin(empId, empNama) {
-      const newPin = prompt('Masukkan PIN baru (angka/huruf) untuk ' + empNama + ' (' + empId + '):', '123456');
+      const newPin = prompt('Masukkan PIN baru (angka/huruf) untuk ' + empNama + ' (' + empId + '):', '1234');
       if (!newPin || !newPin.trim()) return;
 
       if (APP_STATE.isGasEnv) {
@@ -1737,7 +1737,7 @@
           document.getElementById('inputJabatanKaryawan').value = '';
           document.getElementById('inputCatatanKaryawan').value = '';
           document.getElementById('inputPinKaryawan').value = '';
-          showToast('success', 'Karyawan ' + nama + ' berhasil didaftarkan (PIN: ' + (pin || '123456') + ') [Simulasi]!');
+          showToast('success', 'Karyawan ' + nama + ' berhasil didaftarkan (PIN: ' + (pin || '1234') + ') [Simulasi]!');
         }, 500);
       }
     }
