@@ -135,20 +135,24 @@ ZONA BAWAH: MASTER CONTEXT & LOGIKA SISTEM TERKINI (LIVING CONTEXT)
 ================================================================================
 
 ### Status Arsitektur & Lingkungan Aktif
-- **Status Sistem:** v1.5 Active (Zero-Dropdown Self Attendance, Admin Password Manager & Vercel Cloud Deployment).
+- **Status Sistem:** v1.6 Active (Master Data Karyawan Resmi Tim Security SECR-001 s/d SECR-021, Auto ID SECR- Generator, & Default PIN 1234).
 - **Lingkungan Target:** Google Apps Script / Vercel Cloud Production (`https://presensi-kartika-ci.vercel.app`) + Google Sheets (Database) + Google Drive (Penyimpanan Foto Bukti) + Modern Single Page Web App (Frontend).
 - **Struktur Berkas Aktif:**
-  - `setup.gs`: Inisialisasi database idempoten, *Safe Migration*, konfigurasi akun admin (`ADMIN_USERNAME`, `ADMIN_PASSWORD`), dan proteksi anti-underscore pada nama tab (`DataKaryawan`, `RiwayatAbsensi`, `Pengaturan`).
-  - `code.gs`: Controller backend terpadu (`doGet`, `getAppInitData`, `loginUser`, `updateAdminPassword`, `updatePinKaryawan`, `simpanPresensi` dengan `LockService`, `getRekapAbsensi`, `tambahKaryawan`, serta generator ID unik `ABS-YYYYMMDD-XXX`).
-  - `index.html`: Antarmuka SPA responsif modern (Desain Anti-AI, Zero-Dropdown Self Attendance, In-App Admin Password Modal, Route Guard, Slate/Navy Palette, Native HP Camera capture, kompresi foto Canvas, filter rekapitulasi, dan ekspor CSV).
+  - `setup.gs`: Inisialisasi database idempoten, *Safe Migration*, fungsi `resetDanGantiDataKaryawanBaru()` untuk pengisian instan 21 data anggota tim resmi, konfigurasi akun admin (`ADMIN_USERNAME`, `ADMIN_PASSWORD`), dan proteksi anti-underscore pada nama tab (`DataKaryawan`, `RiwayatAbsensi`, `Pengaturan`).
+  - `code.gs`: Controller backend terpadu (`doGet`, `getAppInitData`, `loginUser`, `updateAdminPassword`, `updatePinKaryawan`, `simpanPresensi` dengan `LockService`, `getRekapAbsensi`, `tambahKaryawan`, serta generator ID sekuensial `SECR-XXX` dan `ABS-YYYYMMDD-XXX`).
+  - `index.html`: Antarmuka SPA Google Apps Script terpadu (Desain Anti-AI, Zero-Dropdown Self Attendance, In-App Admin Password Modal, Route Guard, petunjuk login `SECR-001` & PIN `1234`).
+  - `public_index.html` & `public_app.js`: Bundle SPA frontend Vercel Cloud dengan data master tim `SECR-001` s/d `SECR-021` dan simulasi presensi offline/preview mode.
 
 ### Skema Kolom Database Terkini
 - Tab `DataKaryawan`: ID_KARYAWAN (0), NAMA (1), JABATAN (2), STATUS_AKTIF (3), CATATAN (4), PIN_PASSWORD (5)
+  * Data default master: 21 Anggota Tim Security (`SECR-001` s/d `SECR-021`), penempatan lokasi di kolom CATATAN, PIN default `1234`.
 - Tab `RiwayatAbsensi`: ID_ABSEN (0), TANGGAL (1), WAKTU (2), ID_KARYAWAN (3), NAMA (4), TIPE_ABSEN (5), STATUS (6), URL_FOTO (7), KETERANGAN (8)
 - Tab `Pengaturan`: KUNCI (0), NILAI (1), DESKRIPSI (2) [Termasuk parameter ADMIN_USERNAME dan ADMIN_PASSWORD]
 
 ### Logika Bisnis & Formula Hitung Aktif
-- Penomoran Unik: `ABS-YYYYMMDD-XXX` sekuensial dengan validasi `MAX + 1` harian terlindungi `LockService`.
+- Penomoran Unik Presensi: `ABS-YYYYMMDD-XXX` sekuensial dengan validasi `MAX + 1` harian terlindungi `LockService`.
+- Penomoran Unik Karyawan Baru: `SECR-XXX` (3 digit padding, melanjutkan sekuensial dari data tertinggi, contoh `SECR-022`, `SECR-023`).
+- Kredensial Karyawan: ID format `SECR-XXX`, PIN default `1234`.
 - Otentikasi Multi-Peran (Karyawan & Admin): Verifikasi kredensial terisolasi di sisi backend via `loginUser(identifier, password)`. Tidak mengekspos kata sandi atau PIN ke client memory `getAppInitData()`.
 - Presensi Mandiri Bebas Dropdown: Karyawan yang login langsung terikat 100% pada akunnya sendiri (`currentUser`). Pengiriman presensi tidak memerlukan pemilihan dropdown, menghapus potensi salah pilih atau titip absen.
 - Manajemen Sandi Admin dalam Aplikasi: Administrator dapat memperbarui password melalui modal dialog terenkripsi di Web App via `updateAdminPassword(oldPassword, newPassword)`.
@@ -166,3 +170,4 @@ ZONA BAWAH: MASTER CONTEXT & LOGIKA SISTEM TERKINI (LIVING CONTEXT)
 - *v1.3 (Multi-Role Authentication: Karyawan & Admin)*: Sistem login mandiri untuk seluruh karyawan dengan PIN/Password masing-masing (default `123456`) dan akun Admin (`admin` / `admin123`). Form presensi terkunci pada identitas karyawan yang login guna mencegah titip absen. Dilengkapi fitur Reset PIN oleh Admin pada menu Kelola Tim serta Safe Migration kolom `PIN_PASSWORD`.
 - *v1.4 (Zero-Dropdown Self Attendance & In-App Admin Password Manager)*: Otomatisasi penuh formulir Presensi Mandiri tanpa dropdown bagi karyawan (langsung mengikat akun login aktif) serta penambahan Modal Dialog Ganti Password Administrator langsung di Web App.
 - *v1.5 (Vercel Cloud Production Deployment)*: Modularisasi antarmuka (`public_index.html` dan `public_app.js`) dan otomatisasi deployment ke Vercel Cloud Production dengan custom alias domain resmi `https://presensi-kartika-ci.vercel.app` terintegrasi akun `aminillah@gmail.com`.
+- *v1.6 (Data Karyawan Resmi Tim Security SECR-001 s/d SECR-021)*: Penggantian total data contoh EMP dengan 21 data riil anggota tim Security (SECR-001 s/d SECR-021) dengan lokasi penempatan di kolom CATATAN, PIN default disesuaikan ke `1234`, generator ID baru disesuaikan ke format `SECR-`, serta penambahan fungsi utilitas eksekusi satu-klik `resetDanGantiDataKaryawanBaru()` pada `setup.gs` untuk sinkronisasi seketika ke Google Sheets.
