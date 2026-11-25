@@ -18,15 +18,31 @@ const APP_STATE = {
 const MOCK_DATA = {
   settings: { 'NAMA_INSTANSI': 'PT Kartika Cipta Indonesia', 'JAM_MASUK_MAKSIMAL': '08:00' },
   karyawanList: [
-    { id: 'EMP-001', nama: 'Ahmad Fauzi', jabatan: 'Supervisor Lapangan', status: 'AKTIF' },
-    { id: 'EMP-002', nama: 'Budi Santoso', jabatan: 'Staff Gudang', status: 'AKTIF' },
-    { id: 'EMP-003', nama: 'Citra Lestari', jabatan: 'Administrasi & Keuangan', status: 'AKTIF' },
-    { id: 'EMP-004', nama: 'Dedi Kurniawan', jabatan: 'Teknisi Maintenance', status: 'AKTIF' },
-    { id: 'EMP-005', nama: 'Eka Rahmawati', jabatan: 'Customer Service', status: 'AKTIF' }
+    { id: 'SECR-001', nama: 'Sri Subo Siti',            jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-002', nama: 'Hari Yanto',               jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-003', nama: 'Adam Iskandar',            jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-004', nama: 'Henra A. S',               jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-005', nama: 'Bambang. S',               jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-006', nama: 'Gemi I',                   jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-007', nama: 'Eddy S',                   jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-008', nama: 'Uyung K',                  jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-009', nama: 'M. Qidam',                 jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-010', nama: 'Pratama N',                jabatan: 'Koordinator', status: 'AKTIF' },
+    { id: 'SECR-011', nama: 'Ahmad Nawari',             jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-012', nama: 'S Widodo',                 jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-013', nama: 'Herdiyanto',               jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-014', nama: 'Heru Iskandar',            jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-015', nama: 'Nuryanto',                 jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-016', nama: 'Sutris Purwoko',           jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-017', nama: 'Abdul Azis',               jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-018', nama: 'Abdul Rahman Ash-Shiddiq', jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-019', nama: 'Nurdin',                   jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-020', nama: 'Adhek Kurnia I',           jabatan: 'Anggota',     status: 'AKTIF' },
+    { id: 'SECR-021', nama: 'Eri Arman Zebua',          jabatan: 'Anggota',     status: 'AKTIF' }
   ],
   todayLogs: [
-    { id: 'ABS-20261124-001', tanggal: '2026-11-24', waktu: '07:45:10', idKaryawan: 'EMP-001', nama: 'Ahmad Fauzi', tipe: 'MASUK', status: 'HADIR', urlFoto: '', keterangan: 'Tepat waktu di lokasi' },
-    { id: 'ABS-20261124-002', tanggal: '2026-11-24', waktu: '07:55:24', idKaryawan: 'EMP-002', nama: 'Budi Santoso', tipe: 'MASUK', status: 'HADIR', urlFoto: '', keterangan: 'Piket gudang' }
+    { id: 'ABS-20261124-001', tanggal: '2026-11-24', waktu: '07:45:10', idKaryawan: 'SECR-001', nama: 'Sri Subo Siti', tipe: 'MASUK', status: 'HADIR', urlFoto: '', keterangan: 'Tepat waktu di lokasi' },
+    { id: 'ABS-20261124-002', tanggal: '2026-11-24', waktu: '07:55:24', idKaryawan: 'SECR-002', nama: 'Hari Yanto',    tipe: 'MASUK', status: 'HADIR', urlFoto: '', keterangan: 'Piket pagi' }
   ]
 };
 
@@ -255,11 +271,11 @@ function handleUnifiedLoginSubmit(event) {
       if (user.toLowerCase() === 'admin' && pass === 'admin123') {
         onLoginSuccess('ADMIN', { id: 'ADMIN', nama: 'Administrator', jabatan: 'Admin Sistem', role: 'ADMIN' }, 'Login Admin berhasil!');
       } else {
-        const found = MOCK_DATA.karyawanList.find(k => (k.id.toLowerCase() === user.toLowerCase() || k.nama.toLowerCase() === user.toLowerCase()) && pass === '123456');
+        const found = MOCK_DATA.karyawanList.find(k => (k.id.toLowerCase() === user.toLowerCase() || k.nama.toLowerCase() === user.toLowerCase()) && pass === '1234');
         if (found) {
           onLoginSuccess('KARYAWAN', { id: found.id, nama: found.nama, jabatan: found.jabatan, role: 'KARYAWAN' }, 'Selamat datang, ' + found.nama + '!');
         } else {
-          showToast('error', 'Akun atau PIN salah. Contoh: EMP-001 / 123456 atau admin / admin123');
+          showToast('error', 'Akun atau PIN salah. Contoh: SECR-001 / 1234 atau admin / admin123');
         }
       }
     }, 400);
@@ -640,7 +656,7 @@ function renderTimTable() {
 }
 
 function promptResetPin(empId, empNama) {
-  const newPin = prompt('Masukkan PIN baru untuk ' + empNama + ' (' + empId + '):', '123456');
+  const newPin = prompt('Masukkan PIN baru untuk ' + empNama + ' (' + empId + '):', '1234');
   if (!newPin || !newPin.trim()) return;
 
   if (APP_STATE.isGasEnv) {
@@ -690,7 +706,7 @@ function handleTambahKaryawanSubmit(event) {
   } else {
     setTimeout(() => {
       resetBtn();
-      const newEmp = { id: 'EMP-00' + (APP_STATE.karyawanList.length + 1), nama, jabatan: jabatan || 'Staff', status: 'AKTIF' };
+      const newEmp = { id: 'SECR-' + String(APP_STATE.karyawanList.length + 1).padStart(3, '0'), nama, jabatan: jabatan || 'Anggota', status: 'AKTIF' };
       APP_STATE.karyawanList.push(newEmp);
       renderKaryawanDropdown();
       renderTimTable();
@@ -699,7 +715,7 @@ function handleTambahKaryawanSubmit(event) {
       document.getElementById('inputJabatanKaryawan').value = '';
       document.getElementById('inputCatatanKaryawan').value = '';
       document.getElementById('inputPinKaryawan').value = '';
-      showToast('success', 'Karyawan ' + nama + ' berhasil didaftarkan (PIN: ' + (pin || '123456') + ') [Simulasi]!');
+      showToast('success', 'Karyawan ' + nama + ' berhasil didaftarkan (PIN: ' + (pin || '1234') + ') [Simulasi]!');
     }, 400);
   }
 }
