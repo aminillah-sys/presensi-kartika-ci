@@ -46,12 +46,18 @@ const MOCK_DATA = {
   ]
 };
 
-window.addEventListener('DOMContentLoaded', () => {
+function bootApp() {
   initClock();
   initDateFilters();
   loadInitialData();
   checkSavedAuth();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootApp);
+} else {
+  bootApp();
+}
 
 function initClock() {
   const update = () => {
@@ -132,6 +138,7 @@ function checkSavedAuth() {
 function updateAuthUI() {
   const desktopNav = document.getElementById('mainDesktopNav');
   const mobileNav = document.getElementById('mainMobileNav');
+  const navBtnPresensi = document.getElementById('nav-btn-presensi');
   const navBtnRekap = document.getElementById('nav-btn-rekap');
   const navBtnKaryawan = document.getElementById('nav-btn-karyawan');
   const mobBtnRekap = document.getElementById('mob-btn-rekap');
@@ -143,14 +150,24 @@ function updateAuthUI() {
 
   if (!APP_STATE.isLoggedIn) {
     desktopNav?.classList.add('hidden');
+    desktopNav?.classList.remove('md:flex');
+    navBtnPresensi?.classList.add('hidden');
+    navBtnPresensi?.classList.remove('flex');
     mobileNav?.classList.add('hidden');
     userBadge?.classList.add('hidden');
+    userBadge?.classList.remove('flex');
     btnChangePass?.classList.add('hidden');
+    btnChangePass?.classList.remove('flex');
   } else if (APP_STATE.userRole === 'ADMIN') {
     desktopNav?.classList.remove('hidden');
+    desktopNav?.classList.add('md:flex');
+    navBtnPresensi?.classList.remove('hidden');
+    navBtnPresensi?.classList.add('flex');
     mobileNav?.classList.remove('hidden');
     navBtnRekap?.classList.remove('hidden');
+    navBtnRekap?.classList.add('flex');
     navBtnKaryawan?.classList.remove('hidden');
+    navBtnKaryawan?.classList.add('flex');
     mobBtnRekap?.classList.remove('hidden');
     mobBtnKaryawan?.classList.remove('hidden');
     userBadge?.classList.remove('hidden');
@@ -165,14 +182,20 @@ function updateAuthUI() {
     setupPresensiIdentityView();
   } else {
     desktopNav?.classList.remove('hidden');
+    desktopNav?.classList.add('md:flex');
+    navBtnPresensi?.classList.remove('hidden');
+    navBtnPresensi?.classList.add('flex');
     mobileNav?.classList.remove('hidden');
     navBtnRekap?.classList.add('hidden');
+    navBtnRekap?.classList.remove('flex');
     navBtnKaryawan?.classList.add('hidden');
+    navBtnKaryawan?.classList.remove('flex');
     mobBtnRekap?.classList.add('hidden');
     mobBtnKaryawan?.classList.add('hidden');
     userBadge?.classList.remove('hidden');
     userBadge?.classList.add('flex');
     btnChangePass?.classList.add('hidden');
+    btnChangePass?.classList.remove('flex');
     if (labelName) labelName.innerText = APP_STATE.currentUser.nama || 'Karyawan';
     if (labelRole) {
       labelRole.innerText = 'Karyawan';
@@ -365,8 +388,24 @@ function switchTab(tabName) {
     const dBtn = document.getElementById('nav-btn-' + t);
     const mBtn = document.getElementById('mob-btn-' + t);
     const isCurrent = (t === tabName);
-    if (dBtn) dBtn.className = isCurrent ? 'nav-tab px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 bg-slate-800 text-white border border-slate-700 shadow-sm' : 'nav-tab px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800';
-    if (mBtn) mBtn.className = isCurrent ? 'flex-1 py-1.5 px-2 rounded-lg text-center font-medium bg-slate-800 text-white' : 'flex-1 py-1.5 px-2 rounded-lg text-center font-medium text-slate-400 hover:text-white';
+    if (dBtn) {
+      if (isCurrent) {
+        dBtn.classList.add('bg-slate-800', 'text-white', 'border', 'border-slate-700', 'shadow-sm');
+        dBtn.classList.remove('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
+      } else {
+        dBtn.classList.remove('bg-slate-800', 'text-white', 'border', 'border-slate-700', 'shadow-sm');
+        dBtn.classList.add('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
+      }
+    }
+    if (mBtn) {
+      if (isCurrent) {
+        mBtn.classList.add('bg-slate-800', 'text-white');
+        mBtn.classList.remove('text-slate-400', 'hover:text-white');
+      } else {
+        mBtn.classList.remove('bg-slate-800', 'text-white');
+        mBtn.classList.add('text-slate-400', 'hover:text-white');
+      }
+    }
   });
 
   if (tabName === 'rekap' && APP_STATE.rekapLogs.length === 0) fetchRekapData();
