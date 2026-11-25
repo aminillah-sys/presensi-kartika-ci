@@ -62,7 +62,7 @@
         </div>
 
         <!-- Navigation Tabs (Desktop) -->
-        <nav class="hidden md:flex items-center gap-1.5" id="mainDesktopNav">
+        <nav class="hidden items-center gap-1.5" id="mainDesktopNav">
           <!-- 1. Presensi Mandiri -->
           <button onclick="switchTab('presensi')" id="nav-btn-presensi" class="nav-tab hidden px-4 py-2 rounded-lg text-sm font-medium transition-all items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
             <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -143,7 +143,7 @@
   <main class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1">
 
     <!-- ================= TAB 1: PRESENSI MANDIRI ================= -->
-    <section id="tab-presensi" class="tab-content">
+    <section id="tab-presensi" class="tab-content hidden">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         <!-- Form Presensi Mandiri (Left / Center) -->
@@ -739,12 +739,18 @@
     };
 
     // Inisialisasi saat Halaman Selesai Dimuat
-    window.addEventListener('DOMContentLoaded', function() {
+    function bootApp() {
       initClock();
       initDateFilters();
       loadInitialData();
       checkSavedAuth();
-    });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bootApp);
+    } else {
+      bootApp();
+    }
 
     // Jam & Tanggal Digital Realtime
     function initClock() {
@@ -910,13 +916,14 @@
 
       if (!APP_STATE.isLoggedIn) {
         // BELUM LOGIN: Sembunyikan navigasi & profil
-        if (desktopNav) desktopNav.classList.add('hidden');
+        if (desktopNav) { desktopNav.classList.add('hidden'); desktopNav.classList.remove('md:flex'); }
         if (mobileNav) { mobileNav.classList.add('hidden'); mobileNav.classList.remove('flex'); }
+        if (navBtnPresensi) { navBtnPresensi.classList.add('hidden'); navBtnPresensi.classList.remove('flex'); }
         if (userBadge) { userBadge.classList.add('hidden'); userBadge.classList.remove('flex'); }
         if (btnChangePass) { btnChangePass.classList.add('hidden'); btnChangePass.classList.remove('flex'); }
       } else if (APP_STATE.userRole === 'ADMIN') {
         // LOGIN SEBAGAI ADMIN: Buka semua menu
-        if (desktopNav) { desktopNav.classList.remove('hidden'); desktopNav.classList.add('flex'); }
+        if (desktopNav) { desktopNav.classList.remove('hidden'); desktopNav.classList.add('md:flex'); }
         if (mobileNav) { mobileNav.classList.remove('hidden'); mobileNav.classList.add('flex'); }
         if (navBtnPresensi) { navBtnPresensi.classList.remove('hidden'); navBtnPresensi.classList.add('flex'); }
         if (navBtnRekap) { navBtnRekap.classList.remove('hidden'); navBtnRekap.classList.add('flex'); }
@@ -934,7 +941,7 @@
         setupPresensiIdentityView();
       } else if (APP_STATE.userRole === 'KARYAWAN') {
         // LOGIN SEBAGAI KARYAWAN: Hanya Presensi Mandiri
-        if (desktopNav) { desktopNav.classList.remove('hidden'); desktopNav.classList.add('flex'); }
+        if (desktopNav) { desktopNav.classList.remove('hidden'); desktopNav.classList.add('md:flex'); }
         if (mobileNav) { mobileNav.classList.remove('hidden'); mobileNav.classList.add('flex'); }
         if (navBtnPresensi) { navBtnPresensi.classList.remove('hidden'); navBtnPresensi.classList.add('flex'); }
         if (navBtnRekap) { navBtnRekap.classList.add('hidden'); navBtnRekap.classList.remove('flex'); }
@@ -1220,17 +1227,21 @@
 
         if (desktopBtn) {
           if (isCurrent) {
-            desktopBtn.className = 'nav-tab px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 bg-slate-800 text-white border border-slate-700 shadow-sm';
+            desktopBtn.classList.add('bg-slate-800', 'text-white', 'border', 'border-slate-700', 'shadow-sm');
+            desktopBtn.classList.remove('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
           } else {
-            desktopBtn.className = 'nav-tab px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800';
+            desktopBtn.classList.remove('bg-slate-800', 'text-white', 'border', 'border-slate-700', 'shadow-sm');
+            desktopBtn.classList.add('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
           }
         }
 
         if (mobBtn) {
           if (isCurrent) {
-            mobBtn.className = 'flex-1 py-1.5 px-2 rounded-lg text-center font-medium bg-slate-800 text-white';
+            mobBtn.classList.add('bg-slate-800', 'text-white');
+            mobBtn.classList.remove('text-slate-400', 'hover:text-white');
           } else {
-            mobBtn.className = 'flex-1 py-1.5 px-2 rounded-lg text-center font-medium text-slate-400 hover:text-white';
+            mobBtn.classList.remove('bg-slate-800', 'text-white');
+            mobBtn.classList.add('text-slate-400', 'hover:text-white');
           }
         }
       });
