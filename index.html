@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -1077,7 +1077,9 @@
         // Mode Simulasi Lokal / Preview Browser
         setTimeout(function() {
           resetLoginBtn();
-          if (user.toLowerCase() === 'admin' && pass === 'admin123') {
+          const isAdmUser = (user.toLowerCase() === 'admin' || user.toLowerCase() === 'administrator');
+          const isAdmPass = (pass === 'admin123' || pass === '1234');
+          if (isAdmUser && isAdmPass) {
             onLoginSuccess('ADMIN', { id: 'ADMIN', nama: 'Administrator', jabatan: 'Admin Sistem', role: 'ADMIN' }, 'Login berhasil sebagai Administrator!');
           } else {
             const foundEmp = MOCK_DATA.karyawanList.find(function(k) {
