@@ -326,12 +326,12 @@ function tambahKaryawan(payload) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const sheetKaryawan = ss.getSheetByName(SHEET_NAMES.KARYAWAN) || getOrCreateSheet(ss, SHEET_NAMES.KARYAWAN);
     
-    // Hitung nomor urut ID Karyawan berikutnya (EMP-XXX)
+    // Hitung nomor urut ID Karyawan berikutnya (SECR-XXX)
     let nextNum = 1;
     if (sheetKaryawan.getLastRow() > 1) {
       const ids = sheetKaryawan.getRange(2, 1, sheetKaryawan.getLastRow() - 1, 1).getDisplayValues();
       ids.forEach(function(row) {
-        const match = (row[0] || '').match(/EMP-(\d+)/i);
+        const match = (row[0] || '').match(/SECR-(\d+)/i);
         if (match) {
           const num = parseInt(match[1], 10);
           if (num >= nextNum) nextNum = num + 1;
@@ -339,8 +339,8 @@ function tambahKaryawan(payload) {
       });
     }
 
-    const newEmpId = 'EMP-' + ('00' + nextNum).slice(-3);
-    const pinKaryawan = payload.pin && payload.pin.trim() ? payload.pin.trim() : '123456';
+    const newEmpId = 'SECR-' + ('000' + nextNum).slice(-3);
+    const pinKaryawan = payload.pin && payload.pin.trim() ? payload.pin.trim() : '1234';
     const newRow = [
       newEmpId,
       payload.nama.trim(),
@@ -426,7 +426,7 @@ function loginUser(identifier, password) {
         const empId = (row[COL_KARYAWAN.ID] || '').trim();
         const empNama = (row[COL_KARYAWAN.NAMA] || '').trim();
         const empStatus = (row[COL_KARYAWAN.STATUS] || '').trim().toUpperCase();
-        const empPin = (row[COL_KARYAWAN.PIN] || '123456').trim();
+        const empPin = (row[COL_KARYAWAN.PIN] || '1234').trim();
 
         // Pencocokan akun Karyawan (bisa ID atau Nama lengkap)
         if (empStatus === 'AKTIF' && 
