@@ -291,7 +291,9 @@ function handleUnifiedLoginSubmit(event) {
   } else {
     setTimeout(() => {
       resetBtn();
-      if (user.toLowerCase() === 'admin' && pass === 'admin123') {
+      const isAdmUser = (user.toLowerCase() === 'admin' || user.toLowerCase() === 'administrator');
+      const isAdmPass = (pass === 'admin123' || pass === '1234');
+      if (isAdmUser && isAdmPass) {
         onLoginSuccess('ADMIN', { id: 'ADMIN', nama: 'Administrator', jabatan: 'Admin Sistem', role: 'ADMIN' }, 'Login Admin berhasil!');
       } else {
         const found = MOCK_DATA.karyawanList.find(k => (k.id.toLowerCase() === user.toLowerCase() || k.nama.toLowerCase() === user.toLowerCase()) && pass === '1234');
