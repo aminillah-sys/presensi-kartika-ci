@@ -1078,7 +1078,7 @@
         setTimeout(function() {
           resetLoginBtn();
           const isAdmUser = (user.toLowerCase() === 'admin' || user.toLowerCase() === 'administrator');
-          const isAdmPass = (pass === 'admin123' || pass === '1234');
+          const isAdmPass = (pass === '123' || pass === '1234' || pass === 'admin123' || pass === 'admin');
           if (isAdmUser && isAdmPass) {
             onLoginSuccess('ADMIN', { id: 'ADMIN', nama: 'Administrator', jabatan: 'Admin Sistem', role: 'ADMIN' }, 'Login berhasil sebagai Administrator!');
           } else {
