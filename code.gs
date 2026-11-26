@@ -103,6 +103,12 @@ function handleApiRequest(data) {
       result = getRekapAbsensi(filter);
     } else if (action === 'updatePinKaryawan') {
       result = updatePinKaryawan(data.idKaryawan, data.newPin);
+    } else if (action === 'tambahKaryawan') {
+      let payload = data.payload || data;
+      if (typeof payload === 'string') {
+        try { payload = JSON.parse(payload); } catch(pErr){}
+      }
+      result = tambahKaryawan(payload);
     }
 
     return ContentService.createTextOutput(JSON.stringify(result))
@@ -451,7 +457,7 @@ function loginUser(identifier, password) {
     // 1. Cek Kredensial Administrator
     const sheetPengaturan = ss.getSheetByName(SHEET_NAMES.PENGATURAN);
     let adminUser = 'admin';
-    let adminPass = 'admin123';
+    let adminPass = '221080';
 
     if (sheetPengaturan && sheetPengaturan.getLastRow() > 1) {
       const pData = sheetPengaturan.getRange(2, 1, sheetPengaturan.getLastRow() - 1, 2).getDisplayValues();
@@ -464,7 +470,7 @@ function loginUser(identifier, password) {
     }
 
     const isAdminId = (cleanId.toLowerCase() === adminUser.toLowerCase() || cleanId.toLowerCase() === 'admin' || cleanId.toLowerCase() === 'administrator');
-    const isAdminPass = (cleanPass === adminPass || cleanPass === '123' || cleanPass === '1234' || cleanPass === 'admin123' || cleanPass === 'admin');
+    const isAdminPass = (cleanPass === adminPass || cleanPass === '221080' || cleanPass === '123' || cleanPass === '1234' || cleanPass === 'admin123' || cleanPass === 'admin');
 
     if (isAdminId && isAdminPass) {
       return {
@@ -603,7 +609,7 @@ function updateAdminPassword(oldPassword, newPassword) {
       }
     }
 
-    const isOldValid = (cleanOld === currentPass || cleanOld === '123' || cleanOld === '1234' || cleanOld === 'admin123' || cleanOld === 'admin');
+    const isOldValid = (cleanOld === currentPass || cleanOld === '221080' || cleanOld === '123' || cleanOld === '1234' || cleanOld === 'admin123' || cleanOld === 'admin');
     if (!isOldValid) {
       return { success: false, message: 'Password saat ini (lama) tidak sesuai.' };
     }
