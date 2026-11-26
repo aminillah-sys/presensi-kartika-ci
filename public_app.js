@@ -263,7 +263,15 @@ function checkEmployeeTodayStatus(empId) {
 
 function toggleLoginPassVisibility() {
   const p = document.getElementById('inputLoginPass');
-  p.type = (p.type === 'password') ? 'text' : 'password';
+  if (!p) return;
+  const isPass = (p.type === 'password');
+  p.type = isPass ? 'text' : 'password';
+  const btn = document.getElementById('btnTogglePass');
+  if (btn) {
+    btn.innerHTML = isPass ? '🙈' : '👁️';
+    btn.setAttribute('aria-label', isPass ? 'Sembunyikan password' : 'Lihat password');
+    btn.title = isPass ? 'Sembunyikan password' : 'Lihat password';
+  }
 }
 
 function handleUnifiedLoginSubmit(event) {
@@ -292,7 +300,7 @@ function handleUnifiedLoginSubmit(event) {
     setTimeout(() => {
       resetBtn();
       const isAdmUser = (user.toLowerCase() === 'admin' || user.toLowerCase() === 'administrator');
-      const isAdmPass = (pass === 'admin123' || pass === '1234');
+      const isAdmPass = (pass === '123' || pass === '1234' || pass === 'admin123' || pass === 'admin');
       if (isAdmUser && isAdmPass) {
         onLoginSuccess('ADMIN', { id: 'ADMIN', nama: 'Administrator', jabatan: 'Admin Sistem', role: 'ADMIN' }, 'Login Admin berhasil!');
       } else {
