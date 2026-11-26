@@ -90,3 +90,17 @@ Dokumen kerja sementara untuk perencanaan fitur baru / perubahan sistem (ZettBOT
      - Memperbarui skrip darurat `resetPasswordAdmin()` pada `setup.gs` agar memulihkan sandi ke `221080`.
   2. **Keamanan & Konsistensi:**
      - Seluruh 21 akun karyawan tim Security (`SECR-001` s.d. `SECR-021`) dengan PIN `1234` dan fitur tambah karyawan Google Sheets tetap 100% aman dan beroperasi normal.
+
+
+## Revisi v2.3 - Penyembunyian Informasi Kredensial Administrator di Halaman Login (26 Nov 2026)
+- **Status:** SELESAI DITERAPKAN & DISINKRONKAN KE GITHUB & VERCEL
+- **Problem Identifikasi:**
+  Pengguna meminta untuk menghapus teks bantuan kredensial Administrator ("Akun Administrator: Gunakan Username admin & Password 221080.") pada halaman login demi menjaga kerahasiaan dan privasi akun pengelola sistem.
+- **Solusi yang Diterapkan:**
+  1. **Pembersihan Teks Sensitif di Halaman Login:**
+     - Menghapus blok keterangan "Akun Administrator" dari `public_index.html` dan `index.html`. Halaman login kini hanya menyisakan panduan Akun Karyawan secara elegan dan bersih.
+     - Memperbarui pesan error toast pada `public_app.js` dan `app.js` agar tidak membocorkan format password admin jika terjadi kegagalan otentikasi.
+  2. **Sinkronisasi Berkas Google Apps Script & Vercel:**
+     - Berkas HTML template Apps Script (`index.html`) diselaraskan 100% dengan versi Vercel (`public_index.html`).
+  3. **Keamanan & Konsistensi:**
+     - Password resmi admin `221080`, seluruh data 21 karyawan tim Security, PIN `1234`, dan fungsi presensi mandiri tetap berjalan normal tanpa gangguan.
