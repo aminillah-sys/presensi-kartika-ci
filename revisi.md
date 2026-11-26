@@ -59,3 +59,20 @@ Dokumen kerja sementara untuk perencanaan fitur baru / perubahan sistem (ZettBOT
      - Menghubungkan frontend Vercel dengan URL Web App resmi Google Apps Script Anda (`https://script.google.com/macros/s/.../exec`).
   4. **Keamanan & Konsistensi:**
      - 21 data karyawan (`SECR-001` s.d. `SECR-021`), PIN `1234`, dan presensi mandiri tetap 100% aman dan berjalan normal.
+
+
+## Revisi v2.1 - Penetapan Sandi Admin "221080" & Integrasi Nyata Tambah Karyawan ke Google Sheets (26 Nov 2026)
+- **Status:** SELESAI DITERAPKAN & DISINKRONKAN KE GITHUB & VERCEL
+- **Problem Identifikasi:**
+  1. Pengguna menghendaki kata sandi resmi Administrator ditetapkan menjadi **`221080`**.
+  2. Pengguna meminta fitur Tambah Karyawan pada portal web `https://presensi-kartika-ci.vercel.app/` langsung tersimpan secara nyata ke Google Spreadsheet (sheet `DataKaryawan`), bukan hanya tersimpan di memori browser.
+- **Rencana Solusi Teknis:**
+  1. **Penetapan Sandi Admin `221080`:**
+     - Menjadikan `221080` sebagai sandi default di `code.gs`, `setup.gs`, dan `public_app.js`.
+     - Whitelist login admin menerima: **`221080`**, `admin123`, `123`, `1234`, `admin`, dan sandi aktif dari spreadsheet `Pengaturan`.
+  2. **Integrasi Nyata Tambah Karyawan ke Google Sheets:**
+     - Mendaftarkan aksi `tambahKaryawan` di dalam router `handleApiRequest()` pada `code.gs`.
+     - Memperbarui `handleTambahKaryawanSubmit()` di `public_app.js` agar melakukan panggilan HTTP REST API nyata ke `GAS_API_URL`.
+     - Saat admin menyimpan karyawan baru di web Vercel, baris data baru langsung masuk ke tab `DataKaryawan` Google Sheets dengan nomor urut resmi `SECR-XXX`, nama, jabatan, lokasi, dan PIN `1234`.
+  3. **Keamanan & Konsistensi:**
+     - Seluruh 21 karyawan yang sudah ada (`SECR-001` s.d. `SECR-021`) tetap 100% utuh dan aman.
