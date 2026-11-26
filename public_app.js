@@ -448,10 +448,10 @@ function switchTab(tabName) {
     }
     if (mBtn) {
       if (isCurrent) {
-        mBtn.classList.add('bg-slate-800', 'text-white');
+        mBtn.classList.add('bg-slate-800', 'text-white', 'shadow-xs', 'ring-1', 'ring-slate-700/60');
         mBtn.classList.remove('text-slate-400', 'hover:text-white');
       } else {
-        mBtn.classList.remove('bg-slate-800', 'text-white');
+        mBtn.classList.remove('bg-slate-800', 'text-white', 'shadow-xs', 'ring-1', 'ring-slate-700/60');
         mBtn.classList.add('text-slate-400', 'hover:text-white');
       }
     }
