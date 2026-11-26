@@ -104,3 +104,25 @@ Dokumen kerja sementara untuk perencanaan fitur baru / perubahan sistem (ZettBOT
      - Berkas HTML template Apps Script (`index.html`) diselaraskan 100% dengan versi Vercel (`public_index.html`).
   3. **Keamanan & Konsistensi:**
      - Password resmi admin `221080`, seluruh data 21 karyawan tim Security, PIN `1234`, dan fungsi presensi mandiri tetap berjalan normal tanpa gangguan.
+
+
+## Revisi v2.4 - Presisi Responsif Menu Pasca-Login pada Layar Ponsel (HP) Tanpa Mengubah Tampilan Laptop (26 Nov 2026)
+- **Status:** SELESAI DITERAPKAN & DISINKRONKAN KE GITHUB & VERCEL
+- **Problem Identifikasi:**
+  Pengguna meminta agar tampilan menu setelah login menjadi sangat presisi, rapi, dan ergonomis ketika dibuka di smartphone (HP), tanpa mengubah sedikit pun susunan atau estetika saat dibuka di laptop/komputer desktop.
+- **Solusi yang Diterapkan:**
+  1. **Mobile Bottom Navigation Dock Ergonomis:**
+     - Menu navigasi mobile dipindahkan menjadi *Bottom Dock Bar* (`fixed bottom-0`) bergaya aplikasi modern dengan tombol berukuran ideal (min 44px), ikon deskriptif, dan indikator aktif yang jelas.
+     - Bagi Karyawan: Menampilkan menu `🕒 Presensi` dan `🚪 Logout` yang seimbang dan mudah dijangkau satu tangan.
+     - Bagi Administrator: Menampilkan menu `🕒 Presensi`, `📊 Rekap`, `👥 Kelola Tim`, dan `🚪 Logout`.
+     - Ditambahkan *safe padding* bawah `pb-24` di layar ponsel agar tidak ada formulir atau tabel yang terpotong oleh dock.
+  2. **Penyesuaian Header Ringkas di Ponsel:**
+     - Menghindari teks terpotong (*text overlap*) pada ponsel dengan menerapkan `truncate` pada nama instansi dan nama user yang panjang.
+     - Menyembunyikan tombol duplikat Logout dari top bar di HP (sudah tersedia di bottom dock) dan menampilkan ikon kunci ringkas `🔑` untuk password admin di HP.
+  3. **Presisi Formulir, Kartu Metrik, dan Tabel di Ponsel:**
+     - Padding kartu disetel `p-4 sm:p-6 lg:p-8` sehingga memberikan ruang kerja maksimal di layar sempit tanpa mengubah padding lega di laptop (`lg:p-8`).
+     - Tombol status, foto kamera, dan submit disesuaikan ukuran sentuhnya (*touch-friendly*).
+     - Seluruh tabel (Rekapitulasi dan Tim Security) diberi pembungkus `min-w-[700px]` dan `min-w-[480px]` dengan *smooth touch-scroll* (`-webkit-overflow-scrolling: touch`) agar tidak merusak tata letak kartu di HP.
+  4. **Jaminan 100% Tidak Mengubah Layar Laptop:**
+     - Seluruh styling mobile dibatasi secara ketat oleh prefix responsif Tailwind (`md:hidden`, `hidden md:flex`, `lg:block`, dsb.).
+     - Tampilan di laptop tetap mempertahankan header lebar, top navigation bar, grid 12-kolom, dan padding desktop tanpa perubahan visual apa pun.
