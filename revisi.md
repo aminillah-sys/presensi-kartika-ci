@@ -39,3 +39,23 @@ Dokumen kerja sementara untuk perencanaan fitur baru / perubahan sistem (ZettBOT
   3. **Keamanan & Kompatibilitas:**
      - Menjaga seluruh 21 akun karyawan (`SECR-001` s.d. `SECR-021`) dengan PIN `1234` tetap berfungsi normal.
      - Menjamin fitur kamera selfie, presensi GPS/lokasi, dan integrasi spreadsheet tetap berjalan stabil tanpa perubahan yang merusak.
+
+
+## Revisi v2.0 - Real-Time Update Sandi Admin di Web Vercel ke Google Spreadsheet (26 Nov 2026)
+- **Status:** SELESAI DITERAPKAN & DISINKRONKAN
+- **Problem Identifikasi:**
+  Pengguna meminta agar pergantian kata sandi Administrator langsung di portal web `https://presensi-kartika-ci.vercel.app/` benar-benar terupdate secara permanen ke database Google Spreadsheet (sheet `Pengaturan`), bukan hanya berjalan dalam mode pesan simulasi.
+- **Akar Masalah:**
+  1. Pada lingkungan web Vercel (luar Google iframe), objek `google.script.run` tidak tersedia. Sebelumnya, cabang `else` di `public_app.js` hanya memunculkan notifikasi simulasi lokal.
+  2. Berkas backend `code.gs` belum menyediakan gerbang penerima request HTTP `doPost(e)` untuk memproses panggilan REST API dari domain luar (seperti Vercel).
+- **Rencana Solusi Teknis:**
+  1. **Pembuatan Endpoint HTTP API `doPost(e)` di `code.gs`:**
+     - Menangani payload JSON request dari web Vercel untuk aksi `updateAdminPassword`.
+     - Memvalidasi sandi lama admin, memperbarui nilai baris `ADMIN_PASSWORD` di tab sheet `Pengaturan` secara permanen, mengeksekusi `SpreadsheetApp.flush()`, dan mengembalikan status JSON sukses.
+  2. **Integrasi Nyata di Frontend (`public_app.js` & `index.html`):**
+     - Mengubah fungsi `updateAdminPassword()` pada web Vercel agar melakukan panggilan HTTP `fetch()` nyata ke Google Apps Script Web App.
+     - Menghapus label "(Simulasi)" dan memastikan perubahan sandi langsung aktif detik itu juga di Google Spreadsheet dan sesi browser.
+  3. **Konfigurasi URL Web App Google Apps Script:**
+     - Menghubungkan frontend Vercel dengan URL Web App resmi Google Apps Script Anda (`https://script.google.com/macros/s/.../exec`).
+  4. **Keamanan & Konsistensi:**
+     - 21 data karyawan (`SECR-001` s.d. `SECR-021`), PIN `1234`, dan presensi mandiri tetap 100% aman dan berjalan normal.
