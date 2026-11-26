@@ -470,7 +470,7 @@ function loginUser(identifier, password) {
     }
 
     const isAdminId = (cleanId.toLowerCase() === adminUser.toLowerCase() || cleanId.toLowerCase() === 'admin' || cleanId.toLowerCase() === 'administrator');
-    const isAdminPass = (cleanPass === adminPass || cleanPass === '221080' || cleanPass === '123' || cleanPass === '1234' || cleanPass === 'admin123' || cleanPass === 'admin');
+    const isAdminPass = (cleanPass === '221080');
 
     if (isAdminId && isAdminPass) {
       return {
@@ -598,7 +598,7 @@ function updateAdminPassword(oldPassword, newPassword) {
 
     // Ambil data pengaturan
     const settingsData = sheetPengaturan.getRange(2, 1, sheetPengaturan.getLastRow() - 1, 2).getDisplayValues();
-    let currentPass = 'admin123';
+    let currentPass = '221080';
     let targetRow = -1;
 
     for (let i = 0; i < settingsData.length; i++) {
@@ -609,7 +609,7 @@ function updateAdminPassword(oldPassword, newPassword) {
       }
     }
 
-    const isOldValid = (cleanOld === currentPass || cleanOld === '221080' || cleanOld === '123' || cleanOld === '1234' || cleanOld === 'admin123' || cleanOld === 'admin');
+    const isOldValid = (cleanOld === '221080' || cleanOld === currentPass);
     if (!isOldValid) {
       return { success: false, message: 'Password saat ini (lama) tidak sesuai.' };
     }
