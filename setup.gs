@@ -274,8 +274,8 @@ function resetPasswordAdmin() {
     sheet.appendRow(['ADMIN_USERNAME', 'admin', 'Username resmi untuk login ke Dashboard Admin']);
   }
   if (!foundPass) {
-    sheet.appendRow(['ADMIN_PASSWORD', 'admin123', 'Password resmi untuk login ke Dashboard Admin (dapat diubah)']);
+    sheet.appendRow(['ADMIN_PASSWORD', '221080', 'Password resmi untuk login ke Dashboard Admin (dapat diubah)']);
   }
   SpreadsheetApp.flush();
-  SpreadsheetApp.getUi().alert('BERHASIL DI-RESET!\n\nUsername Admin: admin\nPassword Admin: admin123\n(Atau gunakan PIN 1234)\n\nSilakan coba login kembali di Web App.');
+  SpreadsheetApp.getUi().alert('BERHASIL DI-RESET!\n\nUsername Admin: admin\nPassword Admin: 221080\n\nSilakan coba login kembali di Web App.');
 }
