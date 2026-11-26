@@ -23,3 +23,19 @@ Dokumen kerja sementara untuk perencanaan fitur baru / perubahan sistem (ZettBOT
      - Password Admin: menerima sandi yang tersimpan di sheet `Pengaturan`, sandi bawaan `admin123`, serta PIN universal `1234`.
   2. Menambahkan fungsi utilitas darurat `resetPasswordAdmin()` pada `setup.gs` yang dapat dijalankan sekali klik langsung dari Apps Script Editor untuk mereset dan memulihkan kata sandi Admin ke default `admin` / `admin123`.
   3. Menjamin seluruh 21 akun karyawan dan alur kerja aplikasi lainnya tetap berjalan 100% aman dan stabil.
+
+
+## Revisi v1.9 - Dukungan Sandi Admin "123" & Perbaikan Tombol Lihat Password (26 Nov 2026)
+- **Status:** SELESAI DITERAPKAN & DISINKRONKAN
+- **Problem Identifikasi:**
+  1. Pengguna memasukkan kata sandi **`123`** untuk akun `admin`, namun sistem menolak karena pada filter sebelumnya hanya mendaftarkan `admin123` dan `1234`.
+  2. Tombol intip sandi (ikon mata `👁️`) pada kolom `PIN / PASSWORD` tidak merespons klik pengguna karena fungsi `toggleLoginPassVisibility()` bergantung pada berkas skrip eksternal yang berisiko belum selesai dimuat atau terputus jaringan.
+- **Rencana Solusi Teknis:**
+  1. **Toleransi Sandi Admin Multi-Format:**
+     - Memperbarui pengecekan kata sandi Administrator di `code.gs`, `index.html`, dan `public_app.js` agar secara eksplisit menerima: **`123`**, **`1234`**, **`admin123`**, **`admin`**, serta kata sandi kustom yang tercantum pada sheet `Pengaturan`.
+  2. **Penguatan Tombol Intip/Lihat Password (Anti-Macet):**
+     - Memasang fungsi `toggleLoginPassVisibility()` langsung di blok `<script>` inline `public_index.html` dan `index.html` (tidak bergantung load berkas luar).
+     - Menambahkan transisi status visual yang jelas: mengubah tipe input antara `'password'` dan `'text'`, serta mengganti ikon dari mata `👁️` ke mata tertutup `🙈` (atau SVG eye-slash) saat aktif.
+  3. **Keamanan & Kompatibilitas:**
+     - Menjaga seluruh 21 akun karyawan (`SECR-001` s.d. `SECR-021`) dengan PIN `1234` tetap berfungsi normal.
+     - Menjamin fitur kamera selfie, presensi GPS/lokasi, dan integrasi spreadsheet tetap berjalan stabil tanpa perubahan yang merusak.
