@@ -20,31 +20,31 @@ const APP_STATE = {
 const MOCK_DATA = {
   settings: { 'NAMA_INSTANSI': 'PT Kartika Cipta Indonesia', 'JAM_MASUK_MAKSIMAL': '08:00' },
   karyawanList: [
-    { id: 'SECR-001', nama: 'Sri Subo Siti',            jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-002', nama: 'Hari Yanto',               jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-003', nama: 'Adam Iskandar',            jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-004', nama: 'Henra A. S',               jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-005', nama: 'Bambang. S',               jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-006', nama: 'Gemi I',                   jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-007', nama: 'Eddy S',                   jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-008', nama: 'Uyung K',                  jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-009', nama: 'M. Qidam',                 jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-010', nama: 'Pratama N',                jabatan: 'Koordinator', status: 'AKTIF' },
-    { id: 'SECR-011', nama: 'Ahmad Nawari',             jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-012', nama: 'S Widodo',                 jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-013', nama: 'Herdiyanto',               jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-014', nama: 'Heru Iskandar',            jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-015', nama: 'Nuryanto',                 jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-016', nama: 'Sutris Purwoko',           jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-017', nama: 'Abdul Azis',               jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-018', nama: 'Abdul Rahman Ash-Shiddiq', jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-019', nama: 'Nurdin',                   jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-020', nama: 'Adhek Kurnia I',           jabatan: 'Anggota',     status: 'AKTIF' },
-    { id: 'SECR-021', nama: 'Eri Arman Zebua',          jabatan: 'Anggota',     status: 'AKTIF' }
+    { id: 'SECR-001', nama: 'Sri Subo Siti', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-002', nama: 'Hari Yanto', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-003', nama: 'Adam Iskandar', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-004', nama: 'Henra A. S', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-005', nama: 'Bambang. S', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-006', nama: 'Gemi I', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-007', nama: 'Eddy S', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-008', nama: 'Uyung K', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-009', nama: 'M. Qidam', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-010', nama: 'Pratama N', jabatan: 'Koordinator', status: 'AKTIF' },
+    { id: 'SECR-011', nama: 'Ahmad Nawari', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-012', nama: 'S Widodo', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-013', nama: 'Herdiyanto', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-014', nama: 'Heru Iskandar', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-015', nama: 'Nuryanto', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-016', nama: 'Sutris Purwoko', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-017', nama: 'Abdul Azis', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-018', nama: 'Abdul Rahman Ash-Shiddiq', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-019', nama: 'Nurdin', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-020', nama: 'Adhek Kurnia I', jabatan: 'Anggota', status: 'AKTIF' },
+    { id: 'SECR-021', nama: 'Eri Arman Zebua', jabatan: 'Anggota', status: 'AKTIF' }
   ],
   todayLogs: [
     { id: 'ABS-20261124-001', tanggal: '2026-11-24', waktu: '07:45:10', idKaryawan: 'SECR-001', nama: 'Sri Subo Siti', tipe: 'MASUK', status: 'HADIR', urlFoto: '', keterangan: 'Tepat waktu di lokasi' },
-    { id: 'ABS-20261124-002', tanggal: '2026-11-24', waktu: '07:55:24', idKaryawan: 'SECR-002', nama: 'Hari Yanto',    tipe: 'MASUK', status: 'HADIR', urlFoto: '', keterangan: 'Piket pagi' }
+    { id: 'ABS-20261124-002', tanggal: '2026-11-24', waktu: '07:55:24', idKaryawan: 'SECR-002', nama: 'Hari Yanto', tipe: 'MASUK', status: 'HADIR', urlFoto: '', keterangan: 'Piket pagi' }
   ]
 };
 
@@ -127,7 +127,7 @@ function checkSavedAuth() {
         APP_STATE.userRole = p.userRole;
         APP_STATE.currentUser = p.currentUser;
       }
-    } catch(e) { sessionStorage.removeItem('absensi_auth_session'); }
+    } catch (e) { sessionStorage.removeItem('absensi_auth_session'); }
   }
   updateAuthUI();
   if (APP_STATE.isLoggedIn) {
@@ -302,12 +302,12 @@ function handleUnifiedLoginSubmit(event) {
     setTimeout(() => {
       resetBtn();
       const isAdmUser = (user.toLowerCase() === 'admin' || user.toLowerCase() === 'administrator');
-      const isAdmPass = (pass === '221080' || pass === '123' || pass === '1234' || pass === 'admin123' || pass === 'admin');
+      const isAdmPass = (pass === '221080');
       if (isAdmUser && isAdmPass) {
         onLoginSuccess('ADMIN', { id: 'ADMIN', nama: 'Administrator', jabatan: 'Admin Sistem', role: 'ADMIN' }, 'Login Admin berhasil!');
       } else {
         const listToSearch = (APP_STATE.karyawanList && APP_STATE.karyawanList.length > 0) ? APP_STATE.karyawanList : MOCK_DATA.karyawanList;
-        const found = listToSearch.find(k => (k.id.toLowerCase() === user.toLowerCase() || k.nama.toLowerCase() === user.toLowerCase()) && (pass === '1234' || pass === (k.pin || '1234') || pass === '123'));
+        const found = listToSearch.find(k => (k.id.toLowerCase() === user.toLowerCase() || k.nama.toLowerCase() === user.toLowerCase()) && (pass === (k.pin || '1234')));
         if (found) {
           onLoginSuccess('KARYAWAN', { id: found.id, nama: found.nama, jabatan: found.jabatan, role: 'KARYAWAN' }, 'Selamat datang, ' + found.nama + '!');
         } else {
@@ -391,35 +391,35 @@ function handleUpdatePasswordSubmit(event) {
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(payload)
     })
-    .then(r => r.json())
-    .then(res => {
-      resetBtn();
-      if (res && res.success) {
-        showToast('success', res.message || 'Password Admin berhasil diperbarui langsung di database Google Sheets!');
-        closeChangePasswordModal();
-      } else {
-        showToast('error', (res && res.message) ? res.message : 'Password lama tidak sesuai');
-      }
-    })
-    .catch(() => {
-      // Fallback via GET parameter jika browser mengintersepsi redirect POST
-      const getUrl = GAS_API_URL + '?action=updateAdminPassword&oldPassword=' + encodeURIComponent(oldPass) + '&newPassword=' + encodeURIComponent(newPass);
-      fetch(getUrl)
-        .then(r => r.json())
-        .then(res => {
-          resetBtn();
-          if (res && res.success) {
-            showToast('success', res.message || 'Password Admin berhasil diperbarui langsung di database Google Sheets!');
-            closeChangePasswordModal();
-          } else {
-            showToast('error', (res && res.message) ? res.message : 'Gagal memperbarui password di database');
-          }
-        })
-        .catch(err => {
-          resetBtn();
-          showToast('error', 'Koneksi ke Google Sheets gagal: ' + err.message);
-        });
-    });
+      .then(r => r.json())
+      .then(res => {
+        resetBtn();
+        if (res && res.success) {
+          showToast('success', res.message || 'Password Admin berhasil diperbarui langsung di database Google Sheets!');
+          closeChangePasswordModal();
+        } else {
+          showToast('error', (res && res.message) ? res.message : 'Password lama tidak sesuai');
+        }
+      })
+      .catch(() => {
+        // Fallback via GET parameter jika browser mengintersepsi redirect POST
+        const getUrl = GAS_API_URL + '?action=updateAdminPassword&oldPassword=' + encodeURIComponent(oldPass) + '&newPassword=' + encodeURIComponent(newPass);
+        fetch(getUrl)
+          .then(r => r.json())
+          .then(res => {
+            resetBtn();
+            if (res && res.success) {
+              showToast('success', res.message || 'Password Admin berhasil diperbarui langsung di database Google Sheets!');
+              closeChangePasswordModal();
+            } else {
+              showToast('error', (res && res.message) ? res.message : 'Gagal memperbarui password di database');
+            }
+          })
+          .catch(err => {
+            resetBtn();
+            showToast('error', 'Koneksi ke Google Sheets gagal: ' + err.message);
+          });
+      });
   }
 }
 
