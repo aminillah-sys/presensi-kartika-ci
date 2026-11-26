@@ -1,4 +1,6 @@
 // ================= JAVASCRIPT APPLICATION ENGINE =================
+const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbw7upwNlUHjXGQvdeLuUDgz_kq9f52-6jPH5nZgjGineyWKFfBSidoR6ZRZlIUPgd-3pg/exec';
+
 const APP_STATE = {
   isGasEnv: typeof google !== 'undefined' && google.script && google.script.run,
   isLoggedIn: false,
@@ -356,13 +358,13 @@ function handleUpdatePasswordSubmit(event) {
   const confirmPass = document.getElementById('inputConfirmAdminPass').value.trim();
 
   if (!oldPass || !newPass) { showToast('error', 'Semua kolom wajib diisi'); return; }
-  if (newPass.length < 5) { showToast('error', 'Password baru minimal 5 karakter'); return; }
+  if (newPass.length < 3) { showToast('error', 'Password baru minimal 3 karakter'); return; }
   if (newPass !== confirmPass) { showToast('error', 'Konfirmasi password tidak cocok'); return; }
 
   const btn = document.getElementById('btnSubmitChangePass');
   const txt = document.getElementById('textSubmitChangePass');
   btn.disabled = true;
-  txt.innerText = 'Menyimpan...';
+  txt.innerText = 'Menyimpan ke Database...';
 
   const resetBtn = () => { btn.disabled = false; txt.innerText = 'Simpan Password Baru'; };
 
@@ -376,11 +378,47 @@ function handleUpdatePasswordSubmit(event) {
       .withFailureHandler(err => { resetBtn(); showToast('error', 'Gagal: ' + err.message); })
       .updateAdminPassword(oldPass, newPass);
   } else {
-    setTimeout(() => {
+    // Panggilan API Nyata ke Google Apps Script / Google Spreadsheet dari Web Vercel
+    const payload = {
+      action: 'updateAdminPassword',
+      oldPassword: oldPass,
+      newPassword: newPass
+    };
+
+    fetch(GAS_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    })
+    .then(r => r.json())
+    .then(res => {
       resetBtn();
-      if (oldPass !== 'admin123') showToast('error', 'Password lama tidak sesuai (default: admin123)');
-      else { showToast('success', 'Password Admin berhasil diperbarui menjadi ' + newPass + ' (Simulasi)!'); closeChangePasswordModal(); }
-    }, 400);
+      if (res && res.success) {
+        showToast('success', res.message || 'Password Admin berhasil diperbarui langsung di database Google Sheets!');
+        closeChangePasswordModal();
+      } else {
+        showToast('error', (res && res.message) ? res.message : 'Password lama tidak sesuai');
+      }
+    })
+    .catch(() => {
+      // Fallback via GET parameter jika browser mengintersepsi redirect POST
+      const getUrl = GAS_API_URL + '?action=updateAdminPassword&oldPassword=' + encodeURIComponent(oldPass) + '&newPassword=' + encodeURIComponent(newPass);
+      fetch(getUrl)
+        .then(r => r.json())
+        .then(res => {
+          resetBtn();
+          if (res && res.success) {
+            showToast('success', res.message || 'Password Admin berhasil diperbarui langsung di database Google Sheets!');
+            closeChangePasswordModal();
+          } else {
+            showToast('error', (res && res.message) ? res.message : 'Gagal memperbarui password di database');
+          }
+        })
+        .catch(err => {
+          resetBtn();
+          showToast('error', 'Koneksi ke Google Sheets gagal: ' + err.message);
+        });
+    });
   }
 }
 
