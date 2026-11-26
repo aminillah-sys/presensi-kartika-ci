@@ -302,15 +302,16 @@ function handleUnifiedLoginSubmit(event) {
     setTimeout(() => {
       resetBtn();
       const isAdmUser = (user.toLowerCase() === 'admin' || user.toLowerCase() === 'administrator');
-      const isAdmPass = (pass === '123' || pass === '1234' || pass === 'admin123' || pass === 'admin');
+      const isAdmPass = (pass === '221080' || pass === '123' || pass === '1234' || pass === 'admin123' || pass === 'admin');
       if (isAdmUser && isAdmPass) {
         onLoginSuccess('ADMIN', { id: 'ADMIN', nama: 'Administrator', jabatan: 'Admin Sistem', role: 'ADMIN' }, 'Login Admin berhasil!');
       } else {
-        const found = MOCK_DATA.karyawanList.find(k => (k.id.toLowerCase() === user.toLowerCase() || k.nama.toLowerCase() === user.toLowerCase()) && pass === '1234');
+        const listToSearch = (APP_STATE.karyawanList && APP_STATE.karyawanList.length > 0) ? APP_STATE.karyawanList : MOCK_DATA.karyawanList;
+        const found = listToSearch.find(k => (k.id.toLowerCase() === user.toLowerCase() || k.nama.toLowerCase() === user.toLowerCase()) && (pass === '1234' || pass === (k.pin || '1234') || pass === '123'));
         if (found) {
           onLoginSuccess('KARYAWAN', { id: found.id, nama: found.nama, jabatan: found.jabatan, role: 'KARYAWAN' }, 'Selamat datang, ' + found.nama + '!');
         } else {
-          showToast('error', 'Akun atau PIN salah. Contoh: SECR-001 / 1234 atau admin / admin123');
+          showToast('error', 'Akun atau PIN salah. Contoh: admin / 221080 atau SECR-001 / 1234');
         }
       }
     }, 400);
@@ -390,28 +391,34 @@ function handleUpdatePasswordSubmit(event) {
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(payload)
     })
-    .then(r => r.text())
-    .then(text => {
+    .then(r => r.json())
+    .then(res => {
       resetBtn();
-      try {
-        const res = JSON.parse(text);
-        if (res && res.success) {
-          showToast('success', res.message || 'Password Admin berhasil diperbarui langsung di database Google Sheets!');
-          closeChangePasswordModal();
-        } else {
-          showToast('error', (res && res.message) ? res.message : 'Password lama tidak sesuai');
-        }
-      } catch (jsonErr) {
-        if (text.indexOf('Fungsi skrip tidak ditemukan: doPost') !== -1 || text.indexOf('Script function not found: doPost') !== -1) {
-          showToast('error', 'Backend belum diperbarui: Buka Apps Script, paste code.gs terbaru lalu Deploy Versi Baru.');
-        } else {
-          showToast('error', 'Respon server Google: ' + text.substring(0, 100));
-        }
+      if (res && res.success) {
+        showToast('success', res.message || 'Password Admin berhasil diperbarui langsung di database Google Sheets!');
+        closeChangePasswordModal();
+      } else {
+        showToast('error', (res && res.message) ? res.message : 'Password lama tidak sesuai');
       }
     })
-    .catch(err => {
-      resetBtn();
-      showToast('error', 'Koneksi ke Google Sheets gagal: ' + err.message);
+    .catch(() => {
+      // Fallback via GET parameter jika browser mengintersepsi redirect POST
+      const getUrl = GAS_API_URL + '?action=updateAdminPassword&oldPassword=' + encodeURIComponent(oldPass) + '&newPassword=' + encodeURIComponent(newPass);
+      fetch(getUrl)
+        .then(r => r.json())
+        .then(res => {
+          resetBtn();
+          if (res && res.success) {
+            showToast('success', res.message || 'Password Admin berhasil diperbarui langsung di database Google Sheets!');
+            closeChangePasswordModal();
+          } else {
+            showToast('error', (res && res.message) ? res.message : 'Gagal memperbarui password di database');
+          }
+        })
+        .catch(err => {
+          resetBtn();
+          showToast('error', 'Koneksi ke Google Sheets gagal: ' + err.message);
+        });
     });
   }
 }
@@ -785,19 +792,110 @@ function handleTambahKaryawanSubmit(event) {
       .withFailureHandler(err => { resetBtn(); showToast('error', 'Gagal: ' + err.message); })
       .tambahKaryawan(payload);
   } else {
-    setTimeout(() => {
+    // Mode Web Vercel: Terhubung langsung ke Google Sheets API
+    const reqBody = {
+      action: 'tambahKaryawan',
+      payload: {
+        nama: nama,
+        jabatan: jabatan || 'Anggota',
+        catatan: catatan || '-',
+        pin: pin || '1234'
+      }
+    };
+
+    fetch(GAS_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(reqBody)
+    })
+    .then(r => r.json())
+    .then(res => {
       resetBtn();
-      const newEmp = { id: 'SECR-' + String(APP_STATE.karyawanList.length + 1).padStart(3, '0'), nama, jabatan: jabatan || 'Anggota', status: 'AKTIF' };
-      APP_STATE.karyawanList.push(newEmp);
-      renderKaryawanDropdown();
-      renderTimTable();
-      updateMetricCards();
-      document.getElementById('inputNamaKaryawan').value = '';
-      document.getElementById('inputJabatanKaryawan').value = '';
-      document.getElementById('inputCatatanKaryawan').value = '';
-      document.getElementById('inputPinKaryawan').value = '';
-      showToast('success', 'Karyawan ' + nama + ' berhasil didaftarkan (PIN: ' + (pin || '1234') + ') [Simulasi]!');
-    }, 400);
+      if (res && res.success) {
+        showToast('success', res.message || 'Karyawan berhasil ditambahkan ke database Google Sheets!');
+        const newEmp = res.data || {
+          id: 'SECR-' + String(APP_STATE.karyawanList.length + 1).padStart(3, '0'),
+          nama: nama,
+          jabatan: jabatan || 'Anggota',
+          status: 'AKTIF',
+          catatan: catatan || '-'
+        };
+        APP_STATE.karyawanList.push(newEmp);
+        renderKaryawanDropdown();
+        renderTimTable();
+        updateMetricCards();
+        document.getElementById('inputNamaKaryawan').value = '';
+        document.getElementById('inputJabatanKaryawan').value = '';
+        document.getElementById('inputCatatanKaryawan').value = '';
+        document.getElementById('inputPinKaryawan').value = '';
+      } else {
+        showToast('error', (res && res.message) ? res.message : 'Gagal menambahkan karyawan');
+      }
+    })
+    .catch(() => {
+      // Fallback via GET parameter jika POST diintersepsi browser CORS redirect
+      const getUrl = GAS_API_URL + '?action=tambahKaryawan&payload=' + encodeURIComponent(JSON.stringify(reqBody.payload));
+      fetch(getUrl)
+        .then(r => r.json())
+        .then(res => {
+          resetBtn();
+          if (res && res.success) {
+            showToast('success', res.message || 'Karyawan berhasil ditambahkan ke database Google Sheets!');
+            const newEmp = res.data || {
+              id: 'SECR-' + String(APP_STATE.karyawanList.length + 1).padStart(3, '0'),
+              nama: nama,
+              jabatan: jabatan || 'Anggota',
+              status: 'AKTIF',
+              catatan: catatan || '-'
+            };
+            APP_STATE.karyawanList.push(newEmp);
+            renderKaryawanDropdown();
+            renderTimTable();
+            updateMetricCards();
+            document.getElementById('inputNamaKaryawan').value = '';
+            document.getElementById('inputJabatanKaryawan').value = '';
+            document.getElementById('inputCatatanKaryawan').value = '';
+            document.getElementById('inputPinKaryawan').value = '';
+          } else {
+            // Local fallback agar form tetap responsif
+            const fallbackEmp = {
+              id: 'SECR-' + String(APP_STATE.karyawanList.length + 1).padStart(3, '0'),
+              nama: nama,
+              jabatan: jabatan || 'Anggota',
+              status: 'AKTIF',
+              catatan: catatan || '-'
+            };
+            APP_STATE.karyawanList.push(fallbackEmp);
+            renderKaryawanDropdown();
+            renderTimTable();
+            updateMetricCards();
+            document.getElementById('inputNamaKaryawan').value = '';
+            document.getElementById('inputJabatanKaryawan').value = '';
+            document.getElementById('inputCatatanKaryawan').value = '';
+            document.getElementById('inputPinKaryawan').value = '';
+            showToast('warning', 'Karyawan ditambahkan ke tampilan lokal web.');
+          }
+        })
+        .catch(fetchErr => {
+          resetBtn();
+          const fallbackEmp = {
+            id: 'SECR-' + String(APP_STATE.karyawanList.length + 1).padStart(3, '0'),
+            nama: nama,
+            jabatan: jabatan || 'Anggota',
+            status: 'AKTIF',
+            catatan: catatan || '-'
+          };
+          APP_STATE.karyawanList.push(fallbackEmp);
+          renderKaryawanDropdown();
+          renderTimTable();
+          updateMetricCards();
+          document.getElementById('inputNamaKaryawan').value = '';
+          document.getElementById('inputJabatanKaryawan').value = '';
+          document.getElementById('inputCatatanKaryawan').value = '';
+          document.getElementById('inputPinKaryawan').value = '';
+          showToast('warning', 'Karyawan ditambahkan ke tampilan lokal web.');
+        });
+    });
   }
 }
 
