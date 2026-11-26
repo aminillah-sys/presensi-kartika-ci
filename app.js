@@ -311,7 +311,7 @@ function handleUnifiedLoginSubmit(event) {
         if (found) {
           onLoginSuccess('KARYAWAN', { id: found.id, nama: found.nama, jabatan: found.jabatan, role: 'KARYAWAN' }, 'Selamat datang, ' + found.nama + '!');
         } else {
-          showToast('error', 'Akun atau PIN salah. Contoh: admin / 221080 atau SECR-001 / 1234');
+          showToast('error', 'Akun atau PIN salah. Periksa kembali ID Karyawan atau Username Admin Anda.');
         }
       }
     }, 400);
