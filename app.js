@@ -390,34 +390,28 @@ function handleUpdatePasswordSubmit(event) {
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(payload)
     })
-    .then(r => r.json())
-    .then(res => {
+    .then(r => r.text())
+    .then(text => {
       resetBtn();
-      if (res && res.success) {
-        showToast('success', res.message || 'Password Admin berhasil diperbarui langsung di database Google Sheets!');
-        closeChangePasswordModal();
-      } else {
-        showToast('error', (res && res.message) ? res.message : 'Password lama tidak sesuai');
+      try {
+        const res = JSON.parse(text);
+        if (res && res.success) {
+          showToast('success', res.message || 'Password Admin berhasil diperbarui langsung di database Google Sheets!');
+          closeChangePasswordModal();
+        } else {
+          showToast('error', (res && res.message) ? res.message : 'Password lama tidak sesuai');
+        }
+      } catch (jsonErr) {
+        if (text.indexOf('Fungsi skrip tidak ditemukan: doPost') !== -1 || text.indexOf('Script function not found: doPost') !== -1) {
+          showToast('error', 'Backend belum diperbarui: Buka Apps Script, paste code.gs terbaru lalu Deploy Versi Baru.');
+        } else {
+          showToast('error', 'Respon server Google: ' + text.substring(0, 100));
+        }
       }
     })
-    .catch(() => {
-      // Fallback via GET parameter jika browser mengintersepsi redirect POST
-      const getUrl = GAS_API_URL + '?action=updateAdminPassword&oldPassword=' + encodeURIComponent(oldPass) + '&newPassword=' + encodeURIComponent(newPass);
-      fetch(getUrl)
-        .then(r => r.json())
-        .then(res => {
-          resetBtn();
-          if (res && res.success) {
-            showToast('success', res.message || 'Password Admin berhasil diperbarui langsung di database Google Sheets!');
-            closeChangePasswordModal();
-          } else {
-            showToast('error', (res && res.message) ? res.message : 'Gagal memperbarui password di database');
-          }
-        })
-        .catch(err => {
-          resetBtn();
-          showToast('error', 'Koneksi ke Google Sheets gagal: ' + err.message);
-        });
+    .catch(err => {
+      resetBtn();
+      showToast('error', 'Koneksi ke Google Sheets gagal: ' + err.message);
     });
   }
 }
