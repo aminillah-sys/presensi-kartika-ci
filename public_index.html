@@ -26,25 +26,25 @@
 
   <!-- TOP NAVBAR -->
   <header class="bg-slate-900 text-white sticky top-0 z-40 border-b border-slate-800 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-14 sm:h-16">
         
         <!-- Brand Logo & Title -->
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-emerald-400 font-bold text-lg shadow-sm">
+        <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-emerald-400 font-bold text-sm sm:text-lg shadow-sm shrink-0">
             ✓
           </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <span id="appInstansiName" class="font-bold text-base sm:text-lg tracking-tight text-white">PT Kartika Cipta Indonesia</span>
-              <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Online</span>
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <span id="appInstansiName" class="font-bold text-sm sm:text-base md:text-lg tracking-tight text-white truncate max-w-[130px] sm:max-w-[200px] md:max-w-none">PT Kartika Cipta Indonesia</span>
+              <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">Online</span>
             </div>
-            <p class="text-xs text-slate-400">Sistem Presensi & Rekap Terpadu</p>
+            <p class="text-[11px] sm:text-xs text-slate-400 truncate hidden sm:block">Sistem Presensi & Rekap Terpadu</p>
           </div>
         </div>
 
-        <!-- Desktop Navigation -->
-        <nav class="hidden items-center gap-1.5" id="mainDesktopNav">
+        <!-- Desktop Navigation (Laptop / Layar Lebar Tetap Utuh) -->
+        <nav class="hidden md:flex items-center gap-1.5" id="mainDesktopNav">
           <button onclick="switchTab('presensi')" id="nav-btn-presensi" class="nav-tab hidden px-4 py-2 rounded-lg text-sm font-medium transition-all items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
             <span>🕒 Presensi Mandiri</span>
           </button>
@@ -57,81 +57,93 @@
         </nav>
 
         <!-- Profile, Clock & Auth Section -->
-        <div class="flex items-center gap-3">
-          <div class="text-right hidden sm:block">
+        <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          <div class="text-right hidden lg:block">
             <div id="liveClockText" class="text-sm font-semibold tracking-wider text-slate-100 font-mono">--:--:-- WIB</div>
             <div id="liveDateText" class="text-xs text-slate-400">Memuat tanggal...</div>
           </div>
 
           <!-- User Profile & Action Pills -->
-          <div id="userProfileBadge" class="hidden items-center gap-2">
-            <div class="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800 border border-slate-700 flex items-center gap-2 shadow-xs">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span id="labelUserName" class="font-semibold text-white">--</span>
-              <span id="labelUserRole" class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">Karyawan</span>
+          <div id="userProfileBadge" class="hidden items-center gap-1.5 sm:gap-2">
+            <div class="px-2 sm:px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800 border border-slate-700 flex items-center gap-1.5 sm:gap-2 shadow-xs max-w-[130px] sm:max-w-none">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+              <span id="labelUserName" class="font-semibold text-white truncate max-w-[70px] sm:max-w-[110px] md:max-w-none">--</span>
+              <span id="labelUserRole" class="text-[9px] sm:text-[10px] px-1 sm:px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30 shrink-0">Karyawan</span>
             </div>
-            <button id="btnChangePasswordNav" onclick="openChangePasswordModal()" class="hidden px-2.5 py-1 text-xs text-amber-300 hover:text-white hover:bg-amber-900/40 rounded-lg border border-amber-800/40 transition-colors items-center gap-1 font-medium" title="Ganti Password Administrator">
-              🔑 <span>Password</span>
+            <button id="btnChangePasswordNav" onclick="openChangePasswordModal()" class="hidden px-2 sm:px-2.5 py-1 text-xs text-amber-300 hover:text-white hover:bg-amber-900/40 rounded-lg border border-amber-800/40 transition-colors items-center gap-1 font-medium" title="Ganti Password Administrator">
+              <span>🔑</span> <span class="hidden sm:inline">Password</span>
             </button>
-            <button onclick="logoutUser()" class="px-2.5 py-1 text-xs text-rose-300 hover:text-white hover:bg-rose-900/40 rounded-lg border border-rose-800/40 transition-colors flex items-center gap-1 font-medium" title="Keluar">
-              🚪 <span>Logout</span>
+            <button onclick="logoutUser()" class="hidden sm:flex px-2.5 py-1 text-xs text-rose-300 hover:text-white hover:bg-rose-900/40 rounded-lg border border-rose-800/40 transition-colors items-center gap-1 font-medium" title="Keluar">
+              <span>🚪</span> <span>Logout</span>
             </button>
           </div>
 
-          <button onclick="forceRefreshAll()" title="Sinkronisasi Data" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
-            <span id="refreshIcon" class="inline-block text-base">🔄</span>
+          <button onclick="forceRefreshAll()" title="Sinkronisasi Data" class="p-1.5 sm:p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
+            <span id="refreshIcon" class="inline-block text-sm sm:text-base">🔄</span>
           </button>
         </div>
 
       </div>
     </div>
-
-    <!-- Mobile Nav Bar (Bottom) -->
-    <div id="mainMobileNav" class="hidden md:hidden border-t border-slate-800 bg-slate-900/95 px-2 py-2 items-center justify-around text-xs">
-      <button onclick="switchTab('presensi')" id="mob-btn-presensi" class="flex-1 py-1.5 px-2 rounded-lg text-center font-medium bg-slate-800 text-white">Presensi</button>
-      <button onclick="switchTab('rekap')" id="mob-btn-rekap" class="hidden flex-1 py-1.5 px-2 rounded-lg text-center font-medium text-slate-400 hover:text-white">Rekap</button>
-      <button onclick="switchTab('karyawan')" id="mob-btn-karyawan" class="hidden flex-1 py-1.5 px-2 rounded-lg text-center font-medium text-slate-400 hover:text-white">Kelola Tim</button>
-      <button onclick="logoutUser()" class="flex-1 py-1.5 px-2 rounded-lg text-center font-medium text-rose-400 hover:text-white">Logout</button>
-    </div>
   </header>
 
+  <!-- Mobile Bottom Navigation Dock (Presisi di Ponsel HP, Tersembunyi di Laptop) -->
+  <div id="mainMobileNav" class="hidden md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-slate-800 px-2 py-1.5 items-center justify-around shadow-2xl">
+    <button onclick="switchTab('presensi')" id="mob-btn-presensi" class="flex-1 py-1 px-1 rounded-xl text-center font-medium transition-all flex flex-col items-center justify-center gap-0.5 text-white bg-slate-800 shadow-xs ring-1 ring-slate-700/60 min-h-[44px]">
+      <span class="text-base leading-none">🕒</span>
+      <span class="text-[10px] tracking-tight">Presensi</span>
+    </button>
+    <button onclick="switchTab('rekap')" id="mob-btn-rekap" class="hidden flex-1 py-1 px-1 rounded-xl text-center font-medium transition-all flex flex-col items-center justify-center gap-0.5 text-slate-400 hover:text-white min-h-[44px]">
+      <span class="text-base leading-none">📊</span>
+      <span class="text-[10px] tracking-tight">Rekap</span>
+    </button>
+    <button onclick="switchTab('karyawan')" id="mob-btn-karyawan" class="hidden flex-1 py-1 px-1 rounded-xl text-center font-medium transition-all flex flex-col items-center justify-center gap-0.5 text-slate-400 hover:text-white min-h-[44px]">
+      <span class="text-base leading-none">👥</span>
+      <span class="text-[10px] tracking-tight">Kelola Tim</span>
+    </button>
+    <button onclick="logoutUser()" class="flex-1 py-1 px-1 rounded-xl text-center font-medium transition-all flex flex-col items-center justify-center gap-0.5 text-rose-400 hover:text-rose-300 min-h-[44px]">
+      <span class="text-base leading-none">🚪</span>
+      <span class="text-[10px] tracking-tight">Logout</span>
+    </button>
+  </div>
+
   <!-- MAIN CONTAINER -->
-  <main class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1">
+  <main class="max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 pb-24 md:pb-8 flex-1">
 
     <!-- TAB 1: PRESENSI MANDIRI -->
     <section id="tab-presensi" class="tab-content hidden">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
         
         <!-- Form Presensi Card -->
-        <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
-          <div class="flex items-center justify-between pb-5 border-b border-slate-100 mb-6">
+        <div class="lg:col-span-7 bg-white rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-6 lg:p-8">
+          <div class="flex items-center justify-between pb-4 sm:pb-5 border-b border-slate-100 mb-5 sm:mb-6">
             <div>
-              <h2 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">Formulir Presensi Harian</h2>
+              <h2 class="text-base sm:text-xl font-bold text-slate-900 tracking-tight">Formulir Presensi Harian</h2>
               <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Ambil foto selfie bukti kehadiran dan lengkapi data presensi Anda</p>
             </div>
-            <div class="bg-slate-100 px-3 py-1.5 rounded-lg text-right hidden sm:block">
+            <div class="bg-slate-100 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-right hidden sm:block">
               <span class="text-xs font-semibold text-slate-700 block" id="headerJamMaks">Jam Masuk: 08:00</span>
               <span class="text-[10px] text-slate-500">Toleransi Tepat Waktu</span>
             </div>
           </div>
 
-          <form id="presensiForm" onsubmit="handlePresensiSubmit(event)" class="space-y-6">
+          <form id="presensiForm" onsubmit="handlePresensiSubmit(event)" class="space-y-5 sm:space-y-6">
             
             <!-- Identitas Karyawan Terkunci (Bebas Dropdown untuk Karyawan) -->
             <div>
-              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5 sm:mb-2">
                 Identitas Karyawan Presensi <span class="text-rose-500">*</span>
               </label>
 
-              <div id="karyawanLockedCard" class="p-4 rounded-xl bg-slate-900 text-white border border-slate-800 flex items-center justify-between shadow-xs">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-emerald-400 text-sm" id="karyawanLockedAvatar">--</div>
-                  <div>
-                    <div class="flex items-center gap-2">
-                      <h4 class="text-sm sm:text-base font-bold text-white leading-tight" id="karyawanLockedName">Memuat profil...</h4>
-                      <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Akun Terverifikasi</span>
+              <div id="karyawanLockedCard" class="p-3 sm:p-4 rounded-xl bg-slate-900 text-white border border-slate-800 flex items-center justify-between shadow-xs">
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-emerald-400 text-xs sm:text-sm shrink-0" id="karyawanLockedAvatar">--</div>
+                  <div class="min-w-0">
+                    <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap sm:flex-nowrap">
+                      <h4 class="text-sm sm:text-base font-bold text-white leading-tight break-words" id="karyawanLockedName">Memuat profil...</h4>
+                      <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">Akun Terverifikasi</span>
                     </div>
-                    <p class="text-xs text-slate-400 mt-0.5" id="karyawanLockedJabatan">-- • --</p>
+                    <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5" id="karyawanLockedJabatan">-- • --</p>
                   </div>
                 </div>
               </div>
@@ -141,28 +153,28 @@
                 <label for="selectKaryawan" class="block text-[11px] font-medium text-slate-500 mb-1">
                   Atau pilih nama anggota tim (Mode Administrator):
                 </label>
-                <select id="selectKaryawan" onchange="onAdminSelectKaryawanChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-slate-900 outline-none">
+                <select id="selectKaryawan" onchange="onAdminSelectKaryawanChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-slate-900 outline-none">
                   <option value="">-- Pilih Anggota Tim --</option>
                 </select>
               </div>
 
               <!-- Status Hari Ini -->
-              <div id="karyawanStatusPill" class="mt-3">
-                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">
-                  <span class="w-2 h-2 rounded-full bg-slate-400" id="statusPillDot"></span>
-                  <span id="statusPillText">Memeriksa status kehadiran hari ini...</span>
+              <div id="karyawanStatusPill" class="mt-2.5 sm:mt-3">
+                <div class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200 max-w-full">
+                  <span class="w-2 h-2 rounded-full bg-slate-400 shrink-0" id="statusPillDot"></span>
+                  <span id="statusPillText" class="truncate">Memeriksa status kehadiran hari ini...</span>
                 </div>
               </div>
             </div>
 
             <!-- Tipe Absen -->
             <div>
-              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Tipe Presensi <span class="text-rose-500">*</span></label>
-              <div class="grid grid-cols-2 gap-3">
-                <button type="button" onclick="setTipeAbsen('MASUK')" id="btnTipeMasuk" class="tipe-btn py-3 px-4 rounded-xl border text-sm font-semibold flex items-center justify-center gap-2 transition-all bg-slate-900 text-white border-slate-900 shadow-sm">
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5 sm:mb-2">Tipe Presensi <span class="text-rose-500">*</span></label>
+              <div class="grid grid-cols-2 gap-2.5 sm:gap-3">
+                <button type="button" onclick="setTipeAbsen('MASUK')" id="btnTipeMasuk" class="tipe-btn py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl border text-xs sm:text-sm font-semibold flex items-center justify-center gap-1.5 sm:gap-2 transition-all bg-slate-900 text-white border-slate-900 shadow-sm">
                   <span>➡️ Presensi Masuk</span>
                 </button>
-                <button type="button" onclick="setTipeAbsen('PULANG')" id="btnTipePulang" class="tipe-btn py-3 px-4 rounded-xl border text-sm font-semibold flex items-center justify-center gap-2 transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50">
+                <button type="button" onclick="setTipeAbsen('PULANG')" id="btnTipePulang" class="tipe-btn py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl border text-xs sm:text-sm font-semibold flex items-center justify-center gap-1.5 sm:gap-2 transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50">
                   <span>⬅️ Presensi Pulang</span>
                 </button>
               </div>
@@ -170,33 +182,33 @@
 
             <!-- Status Kehadiran -->
             <div>
-              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Status Kehadiran <span class="text-rose-500">*</span></label>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5 sm:mb-2">Status Kehadiran <span class="text-rose-500">*</span></label>
               <div class="grid grid-cols-3 gap-2 sm:gap-3">
-                <button type="button" onclick="setStatusAbsen('HADIR')" id="btnStatusHadir" class="status-btn py-2.5 px-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all bg-emerald-50 text-emerald-800 border-emerald-500 ring-2 ring-emerald-500/20">Hadir</button>
-                <button type="button" onclick="setStatusAbsen('IZIN')" id="btnStatusIzin" class="status-btn py-2.5 px-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50">Izin</button>
-                <button type="button" onclick="setStatusAbsen('SAKIT')" id="btnStatusSakit" class="status-btn py-2.5 px-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50">Sakit</button>
+                <button type="button" onclick="setStatusAbsen('HADIR')" id="btnStatusHadir" class="status-btn py-2 sm:py-2.5 px-2 sm:px-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all bg-emerald-50 text-emerald-800 border-emerald-500 ring-2 ring-emerald-500/20">Hadir</button>
+                <button type="button" onclick="setStatusAbsen('IZIN')" id="btnStatusIzin" class="status-btn py-2 sm:py-2.5 px-2 sm:px-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50">Izin</button>
+                <button type="button" onclick="setStatusAbsen('SAKIT')" id="btnStatusSakit" class="status-btn py-2 sm:py-2.5 px-2 sm:px-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50">Sakit</button>
               </div>
             </div>
 
             <!-- Kamera Selfie Bukti Kehadiran -->
             <div>
-              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Foto Bukti Selfie / Surat <span class="text-rose-500">*</span></label>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5 sm:mb-2">Foto Bukti Selfie / Surat <span class="text-rose-500">*</span></label>
               <input type="file" id="cameraInput" accept="image/*" capture="user" onchange="handlePhotoCapture(event)" class="hidden">
               <canvas id="compressCanvas" class="hidden"></canvas>
 
-              <div id="photoPreviewContainer" class="border-2 border-dashed border-slate-300 hover:border-slate-400 bg-slate-50/70 rounded-2xl p-4 sm:p-6 text-center transition-all">
+              <div id="photoPreviewContainer" class="border-2 border-dashed border-slate-300 hover:border-slate-400 bg-slate-50/70 rounded-xl sm:rounded-2xl p-4 sm:p-6 text-center transition-all">
                 <div id="emptyPhotoBox">
-                  <div class="w-14 h-14 mx-auto rounded-2xl bg-white shadow-sm border border-slate-200 flex items-center justify-center text-slate-600 mb-3 text-2xl">📸</div>
-                  <h4 class="text-sm font-semibold text-slate-800">Ambil Foto Bukti Kehadiran</h4>
-                  <p class="text-xs text-slate-500 mt-1 max-w-xs mx-auto">Buka kamera ponsel Anda untuk mengambil foto bukti kehadiran secara instan</p>
-                  <button type="button" onclick="document.getElementById('cameraInput').click()" class="mt-4 inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-medium rounded-xl shadow-sm transition-all">
+                  <div class="w-12 h-12 sm:w-14 sm:h-14 mx-auto rounded-2xl bg-white shadow-sm border border-slate-200 flex items-center justify-center text-slate-600 mb-2.5 sm:mb-3 text-xl sm:text-2xl">📸</div>
+                  <h4 class="text-xs sm:text-sm font-semibold text-slate-800">Ambil Foto Bukti Kehadiran</h4>
+                  <p class="text-[11px] sm:text-xs text-slate-500 mt-1 max-w-xs mx-auto">Buka kamera ponsel Anda untuk mengambil foto bukti kehadiran secara instan</p>
+                  <button type="button" onclick="document.getElementById('cameraInput').click()" class="mt-3.5 inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-medium rounded-xl shadow-sm transition-all">
                     <span>📷 Buka Kamera Selfie</span>
                   </button>
                 </div>
 
                 <div id="loadedPhotoBox" class="hidden flex flex-col items-center">
                   <div class="relative max-w-xs w-full rounded-xl overflow-hidden border border-slate-200 shadow-sm bg-black">
-                    <img id="previewImg" src="" alt="Bukti Foto" class="w-full h-56 object-cover">
+                    <img id="previewImg" src="" alt="Bukti Foto" class="w-full h-48 sm:h-56 object-cover">
                     <div class="absolute top-2 right-2 bg-slate-900/80 backdrop-blur text-white text-[10px] px-2 py-1 rounded-md">
                       Terkompresi (<span id="photoSizeLabel">0 KB</span>)
                     </div>
@@ -211,16 +223,16 @@
 
             <!-- Catatan Tambahan -->
             <div>
-              <label for="inputKeterangan" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Catatan / Keterangan (Opsional)</label>
-              <textarea id="inputKeterangan" rows="2" placeholder="Contoh: Piket pagi / Dinas luar / Izin dokter" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-slate-900 outline-none resize-none"></textarea>
+              <label for="inputKeterangan" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5 sm:mb-2">Catatan / Keterangan (Opsional)</label>
+              <textarea id="inputKeterangan" rows="2" placeholder="Contoh: Piket pagi / Dinas luar / Izin dokter" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-slate-900 outline-none resize-none"></textarea>
             </div>
 
             <!-- Submit Button -->
             <div>
-              <button type="submit" id="btnSubmitPresensi" class="w-full py-4 px-6 bg-slate-900 hover:bg-slate-800 active:bg-black text-white font-semibold text-sm sm:text-base rounded-xl shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-60">
+              <button type="submit" id="btnSubmitPresensi" class="w-full py-3.5 sm:py-4 px-4 sm:px-6 bg-slate-900 hover:bg-slate-800 active:bg-black text-white font-semibold text-sm sm:text-base rounded-xl shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-60">
                 <span id="submitText">🚀 Kirim Presensi Sekarang</span>
               </button>
-              <p class="text-[11px] text-center text-slate-400 mt-2">Data Anda tersimpan langsung secara terenkripsi ke database Google Workspace resmi</p>
+              <p class="text-[10px] sm:text-[11px] text-center text-slate-400 mt-2">Data Anda tersimpan langsung secara terenkripsi ke database Google Workspace resmi</p>
             </div>
 
           </form>
@@ -228,15 +240,15 @@
 
         <!-- Live Feed Aktivitas Hari Ini -->
         <div class="lg:col-span-5 space-y-4">
-          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
+          <div class="bg-white rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-6">
+            <div class="flex items-center justify-between pb-3.5 sm:pb-4 border-b border-slate-100 mb-3.5 sm:mb-4">
               <div>
-                <h3 class="font-bold text-slate-900 text-base">Aktivitas Hari Ini</h3>
+                <h3 class="font-bold text-slate-900 text-sm sm:text-base">Aktivitas Hari Ini</h3>
                 <p class="text-xs text-slate-500" id="todayFeedSubtitle">Memuat presensi hari ini...</p>
               </div>
               <span id="todayCountBadge" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">0 Data</span>
             </div>
-            <div id="todayFeedList" class="space-y-3 max-h-[520px] overflow-y-auto pr-1 custom-scroll">
+            <div id="todayFeedList" class="space-y-2.5 sm:space-y-3 max-h-[520px] overflow-y-auto pr-1 custom-scroll">
               <div class="text-center py-8 text-slate-400 text-xs">Belum ada presensi yang tercatat hari ini.</div>
             </div>
           </div>
@@ -246,43 +258,43 @@
     </section>
 
     <!-- TAB 2: DASHBOARD & REKAP ADMIN -->
-    <section id="tab-rekap" class="tab-content hidden space-y-6">
+    <section id="tab-rekap" class="tab-content hidden space-y-4 sm:space-y-6">
       
       <!-- Metric Cards -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
-          <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Tim Aktif</div>
-          <div class="mt-2"><span id="metricTotalKaryawan" class="text-2xl font-bold text-slate-900">0</span> <span class="text-xs text-slate-400">Orang</span></div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+        <div class="bg-white rounded-xl sm:rounded-2xl border border-slate-200 p-3.5 sm:p-5 shadow-sm">
+          <div class="text-[10px] sm:text-xs font-medium text-slate-500 uppercase tracking-wider">Total Tim Aktif</div>
+          <div class="mt-1 sm:mt-2"><span id="metricTotalKaryawan" class="text-xl sm:text-2xl font-bold text-slate-900">0</span> <span class="text-[10px] sm:text-xs text-slate-400">Orang</span></div>
         </div>
-        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
-          <div class="text-xs font-medium text-emerald-600 uppercase tracking-wider">Hadir Hari Ini</div>
-          <div class="mt-2"><span id="metricHadirHariIni" class="text-2xl font-bold text-emerald-600">0</span> <span class="text-xs text-slate-400">Karyawan</span></div>
+        <div class="bg-white rounded-xl sm:rounded-2xl border border-slate-200 p-3.5 sm:p-5 shadow-sm">
+          <div class="text-[10px] sm:text-xs font-medium text-emerald-600 uppercase tracking-wider">Hadir Hari Ini</div>
+          <div class="mt-1 sm:mt-2"><span id="metricHadirHariIni" class="text-xl sm:text-2xl font-bold text-emerald-600">0</span> <span class="text-[10px] sm:text-xs text-slate-400">Karyawan</span></div>
         </div>
-        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
-          <div class="text-xs font-medium text-amber-600 uppercase tracking-wider">Izin / Sakit</div>
-          <div class="mt-2"><span id="metricIzinSakitHariIni" class="text-2xl font-bold text-amber-600">0</span> <span class="text-xs text-slate-400">Karyawan</span></div>
+        <div class="bg-white rounded-xl sm:rounded-2xl border border-slate-200 p-3.5 sm:p-5 shadow-sm">
+          <div class="text-[10px] sm:text-xs font-medium text-amber-600 uppercase tracking-wider">Izin / Sakit</div>
+          <div class="mt-1 sm:mt-2"><span id="metricIzinSakitHariIni" class="text-xl sm:text-2xl font-bold text-amber-600">0</span> <span class="text-[10px] sm:text-xs text-slate-400">Karyawan</span></div>
         </div>
-        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
-          <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">Belum Presensi</div>
-          <div class="mt-2"><span id="metricBelumAbsen" class="text-2xl font-bold text-rose-600">0</span> <span class="text-xs text-slate-400">Karyawan</span></div>
+        <div class="bg-white rounded-xl sm:rounded-2xl border border-slate-200 p-3.5 sm:p-5 shadow-sm">
+          <div class="text-[10px] sm:text-xs font-medium text-slate-500 uppercase tracking-wider">Belum Presensi</div>
+          <div class="mt-1 sm:mt-2"><span id="metricBelumAbsen" class="text-xl sm:text-2xl font-bold text-rose-600">0</span> <span class="text-[10px] sm:text-xs text-slate-400">Karyawan</span></div>
         </div>
       </div>
 
       <!-- Filters & Export -->
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
-          <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 flex-1">
+      <div class="bg-white rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm p-3.5 sm:p-5">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-3 sm:gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-2.5 sm:gap-3 flex-1">
             <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Dari Tanggal</label>
-              <input type="date" id="filterStartDate" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-slate-900">
+              <label class="block text-[11px] sm:text-xs font-semibold text-slate-600 mb-1">Dari Tanggal</label>
+              <input type="date" id="filterStartDate" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-slate-900">
             </div>
             <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Sampai Tanggal</label>
-              <input type="date" id="filterEndDate" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-slate-900">
+              <label class="block text-[11px] sm:text-xs font-semibold text-slate-600 mb-1">Sampai Tanggal</label>
+              <input type="date" id="filterEndDate" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-slate-900">
             </div>
             <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Status</label>
-              <select id="filterStatus" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-slate-900">
+              <label class="block text-[11px] sm:text-xs font-semibold text-slate-600 mb-1">Status</label>
+              <select id="filterStatus" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-slate-900">
                 <option value="SEMUA">Semua Status</option>
                 <option value="HADIR">Hadir Saja</option>
                 <option value="IZIN">Izin Saja</option>
@@ -290,38 +302,42 @@
               </select>
             </div>
             <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Cari Karyawan</label>
-              <input type="text" id="filterQuery" placeholder="Nama atau ID..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-slate-900">
+              <label class="block text-[11px] sm:text-xs font-semibold text-slate-600 mb-1">Cari Karyawan</label>
+              <input type="text" id="filterQuery" placeholder="Nama atau ID..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-slate-900">
             </div>
           </div>
-          <div class="flex items-center gap-2">
-            <button onclick="fetchRekapData()" class="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs sm:text-sm font-medium shadow-sm">🔍 Filter</button>
-            <button onclick="exportToExcelCsv()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs sm:text-sm font-medium shadow-sm">📥 Export CSV</button>
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <button onclick="fetchRekapData()" class="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2 sm:py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs sm:text-sm font-medium shadow-sm flex items-center justify-center gap-1.5">
+              <span>🔍</span> <span>Filter</span>
+            </button>
+            <button onclick="exportToExcelCsv()" class="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2 sm:py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs sm:text-sm font-medium shadow-sm flex items-center justify-center gap-1.5">
+              <span>📥</span> <span>Export CSV</span>
+            </button>
           </div>
         </div>
       </div>
 
       <!-- Rekap Table -->
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div class="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between">
+      <div class="bg-white rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-3.5 sm:p-5 border-b border-slate-100 flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <h3 class="font-bold text-slate-900 text-base">Data Rekap Presensi</h3>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">Data Rekap Presensi</h3>
             <span id="rekapCountBadge" class="px-2 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">0 Data</span>
           </div>
-          <span class="text-xs text-slate-400">Menampilkan data realtime</span>
+          <span class="text-[11px] sm:text-xs text-slate-400">Menampilkan data realtime</span>
         </div>
         <div class="table-container custom-scroll">
-          <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <table class="w-full text-left border-collapse text-xs sm:text-sm min-w-[700px]">
             <thead class="bg-slate-900 text-slate-100 uppercase text-[11px] tracking-wider font-semibold">
               <tr>
-                <th class="py-3 px-4 text-center">No</th>
-                <th class="py-3 px-4">ID Transaksi</th>
-                <th class="py-3 px-4">Waktu</th>
-                <th class="py-3 px-4">Karyawan</th>
-                <th class="py-3 px-4 text-center">Tipe</th>
-                <th class="py-3 px-4 text-center">Status</th>
-                <th class="py-3 px-4 text-center">Bukti Foto</th>
-                <th class="py-3 px-4">Keterangan</th>
+                <th class="py-2.5 sm:py-3 px-3 sm:px-4 text-center">No</th>
+                <th class="py-2.5 sm:py-3 px-3 sm:px-4">ID Transaksi</th>
+                <th class="py-2.5 sm:py-3 px-3 sm:px-4">Waktu</th>
+                <th class="py-2.5 sm:py-3 px-3 sm:px-4">Karyawan</th>
+                <th class="py-2.5 sm:py-3 px-3 sm:px-4 text-center">Tipe</th>
+                <th class="py-2.5 sm:py-3 px-3 sm:px-4 text-center">Status</th>
+                <th class="py-2.5 sm:py-3 px-3 sm:px-4 text-center">Bukti Foto</th>
+                <th class="py-2.5 sm:py-3 px-3 sm:px-4">Keterangan</th>
               </tr>
             </thead>
             <tbody id="rekapTableBody" class="divide-y divide-slate-100 text-slate-700">
@@ -334,55 +350,55 @@
     </section>
 
     <!-- TAB 3: KELOLA TIM -->
-    <section id="tab-karyawan" class="tab-content hidden space-y-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    <section id="tab-karyawan" class="tab-content hidden space-y-4 sm:space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
         
         <!-- Form Tambah Karyawan -->
-        <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-          <h3 class="font-bold text-slate-900 text-base mb-1">Tambah Karyawan Baru</h3>
-          <p class="text-xs text-slate-500 mb-5">Daftarkan anggota tim baru ke dalam database master</p>
-          <form onsubmit="handleTambahKaryawanSubmit(event)" class="space-y-4">
+        <div class="lg:col-span-5 bg-white rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-6">
+          <h3 class="font-bold text-slate-900 text-sm sm:text-base mb-1">Tambah Karyawan Baru</h3>
+          <p class="text-xs text-slate-500 mb-4 sm:mb-5">Daftarkan anggota tim baru ke dalam database master</p>
+          <form onsubmit="handleTambahKaryawanSubmit(event)" class="space-y-3.5 sm:space-y-4">
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">Nama Lengkap <span class="text-rose-500">*</span></label>
-              <input type="text" id="inputNamaKaryawan" required placeholder="Contoh: Rian Pratama" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-slate-900">
+              <input type="text" id="inputNamaKaryawan" required placeholder="Contoh: Rian Pratama" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-slate-900">
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">Divisi / Jabatan</label>
-              <input type="text" id="inputJabatanKaryawan" placeholder="Contoh: Staff Gudang / Sales" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-slate-900">
+              <input type="text" id="inputJabatanKaryawan" placeholder="Contoh: Staff Gudang / Sales" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-slate-900">
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">Catatan Tambahan</label>
-              <input type="text" id="inputCatatanKaryawan" placeholder="Contoh: Penempatan Cabang Barat" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-slate-900">
+              <input type="text" id="inputCatatanKaryawan" placeholder="Contoh: Penempatan Cabang Barat" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-slate-900">
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">PIN / Password Login Karyawan</label>
-              <input type="text" id="inputPinKaryawan" placeholder="Default: 1234" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-slate-900 font-mono">
+              <input type="text" id="inputPinKaryawan" placeholder="Default: 1234" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-slate-900 font-mono">
               <span class="text-[10px] text-slate-400">Kosongkan untuk PIN default 1234</span>
             </div>
-            <button type="submit" id="btnTambahKaryawan" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm rounded-xl transition-all shadow-sm flex items-center justify-center gap-2">
+            <button type="submit" id="btnTambahKaryawan" class="w-full py-2.5 sm:py-3 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm rounded-xl transition-all shadow-sm flex items-center justify-center gap-2">
               <span>➕ Simpan Karyawan</span>
             </button>
           </form>
         </div>
 
         <!-- Tabel Daftar Karyawan -->
-        <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-          <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
+        <div class="lg:col-span-7 bg-white rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-6">
+          <div class="flex items-center justify-between pb-3.5 sm:pb-4 border-b border-slate-100 mb-3.5 sm:mb-4">
             <div>
-              <h3 class="font-bold text-slate-900 text-base">Daftar Anggota Tim</h3>
+              <h3 class="font-bold text-slate-900 text-sm sm:text-base">Daftar Anggota Tim</h3>
               <p class="text-xs text-slate-500">Seluruh karyawan yang terdaftar dalam sistem</p>
             </div>
             <span id="timCountBadge" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">0 Anggota</span>
           </div>
           <div class="table-container custom-scroll">
-            <table class="w-full text-left text-xs sm:text-sm">
+            <table class="w-full text-left text-xs sm:text-sm min-w-[480px]">
               <thead class="bg-slate-100 text-slate-700 uppercase text-[11px] font-semibold">
                 <tr>
-                  <th class="py-2.5 px-3">ID</th>
-                  <th class="py-2.5 px-3">Nama</th>
-                  <th class="py-2.5 px-3">Jabatan</th>
-                  <th class="py-2.5 px-3 text-center">Status</th>
-                  <th class="py-2.5 px-3 text-center">Aksi</th>
+                  <th class="py-2 sm:py-2.5 px-2.5 sm:px-3">ID</th>
+                  <th class="py-2 sm:py-2.5 px-2.5 sm:px-3">Nama</th>
+                  <th class="py-2 sm:py-2.5 px-2.5 sm:px-3">Jabatan</th>
+                  <th class="py-2 sm:py-2.5 px-2.5 sm:px-3 text-center">Status</th>
+                  <th class="py-2 sm:py-2.5 px-2.5 sm:px-3 text-center">Aksi</th>
                 </tr>
               </thead>
               <tbody id="timTableBody" class="divide-y divide-slate-100"></tbody>
