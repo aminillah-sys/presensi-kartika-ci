@@ -76,3 +76,17 @@ Dokumen kerja sementara untuk perencanaan fitur baru / perubahan sistem (ZettBOT
      - Saat admin menyimpan karyawan baru di web Vercel, baris data baru langsung masuk ke tab `DataKaryawan` Google Sheets dengan nomor urut resmi `SECR-XXX`, nama, jabatan, lokasi, dan PIN `1234`.
   3. **Keamanan & Konsistensi:**
      - Seluruh 21 karyawan yang sudah ada (`SECR-001` s.d. `SECR-021`) tetap 100% utuh dan aman.
+
+
+## Revisi v2.2 - Penghapusan Seluruh Toleransi Sandi Admin (Tunggal: 221080) (26 Nov 2026)
+- **Status:** SELESAI DITERAPKAN & DISINKRONKAN KE GITHUB & VERCEL
+- **Problem Identifikasi:**
+  Pengguna meminta agar seluruh toleransi variasi password admin lama (`123`, `1234`, `admin123`, `admin`) dihapus secara total, sehingga hanya ada **satu-satunya password resmi Administrator**, yaitu **`221080`**.
+- **Solusi yang Diterapkan:**
+  1. **Kunci Sandi Admin Tunggal `221080`:**
+     - Menghapus seluruh array toleransi `isAdminPass` di `code.gs` dan `public_app.js`/`app.js`. Password admin kini dikunci secara ketat hanya menerima string `221080`.
+     - Memperbarui validasi sandi lama pada pergantian password `updateAdminPassword` agar hanya menerima `221080`.
+     - Memperbarui panduan di halaman login `public_index.html` dan `index.html` menampilkan `admin` & `221080`.
+     - Memperbarui skrip darurat `resetPasswordAdmin()` pada `setup.gs` agar memulihkan sandi ke `221080`.
+  2. **Keamanan & Konsistensi:**
+     - Seluruh 21 akun karyawan tim Security (`SECR-001` s.d. `SECR-021`) dengan PIN `1234` dan fitur tambah karyawan Google Sheets tetap 100% aman dan beroperasi normal.
