@@ -91,7 +91,7 @@ function setupDatabase() {
     ['NAMA_FOLDER_DRIVE', 'Absensi_Karyawan_Photos', 'Nama folder di Google Drive untuk menyimpan berkas foto bukti selfie'],
     ['JAM_MASUK_MAKSIMAL', '08:00', 'Batas toleransi jam masuk kerja tepat waktu (WIB)'],
     ['ADMIN_USERNAME', 'admin', 'Username resmi untuk login ke Dashboard Admin'],
-    ['ADMIN_PASSWORD', 'admin123', 'Password resmi untuk login ke Dashboard Admin (dapat diubah)'],
+    ['ADMIN_PASSWORD', '221080', 'Password resmi untuk login ke Dashboard Admin (dapat diubah)'],
     ['VERSI_SISTEM', 'v1.3-GAS', 'Versi database aktif']
   ];
 
@@ -265,7 +265,7 @@ function resetPasswordAdmin() {
         foundUser = true;
       }
       if (k === 'ADMIN_PASSWORD') {
-        sheet.getRange(i + 2, 2).setValue('admin123');
+        sheet.getRange(i + 2, 2).setValue('221080');
         foundPass = true;
       }
     }
